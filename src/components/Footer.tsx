@@ -1,5 +1,16 @@
 
 const Footer = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.querySelector(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleExternalLink = (url: string) => {
+    window.open(url, '_blank');
+  };
+
   return (
     <footer className="bg-navy text-white py-16">
       <div className="max-w-7xl mx-auto px-6">
@@ -28,24 +39,36 @@ const Footer = () => {
             {/* Links */}
             <div className="space-y-2 mb-8">
               <div>
-                <a href="#contact" className="hover:text-gold transition-colors duration-300">
+                <button 
+                  onClick={() => scrollToSection('#contact')} 
+                  className="hover:text-gold transition-colors duration-300"
+                >
                   Contact
-                </a>
+                </button>
               </div>
               <div>
-                <a href="#careers" className="hover:text-gold transition-colors duration-300">
+                <button 
+                  onClick={() => handleExternalLink('https://odia.dev/careers')} 
+                  className="hover:text-gold transition-colors duration-300"
+                >
                   Careers
-                </a>
+                </button>
               </div>
               <div>
-                <a href="#partnerships" className="hover:text-gold transition-colors duration-300">
+                <button 
+                  onClick={() => scrollToSection('#partnerships')} 
+                  className="hover:text-gold transition-colors duration-300"
+                >
                   Partnerships
-                </a>
+                </button>
               </div>
               <div>
-                <a href="#linkedin" className="hover:text-gold transition-colors duration-300">
+                <button 
+                  onClick={() => handleExternalLink('https://linkedin.com/company/odia-ai')} 
+                  className="hover:text-gold transition-colors duration-300"
+                >
                   LinkedIn
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -59,15 +82,24 @@ const Footer = () => {
             </div>
             
             <div className="flex flex-wrap gap-6 text-white/60">
-              <a href="#privacy" className="hover:text-white transition-colors duration-300">
+              <button 
+                onClick={() => handleExternalLink('https://odia.dev/privacy')} 
+                className="hover:text-white transition-colors duration-300"
+              >
                 Privacy Policy
-              </a>
-              <a href="#terms" className="hover:text-white transition-colors duration-300">
+              </button>
+              <button 
+                onClick={() => handleExternalLink('https://odia.dev/terms')} 
+                className="hover:text-white transition-colors duration-300"
+              >
                 Terms of Service
-              </a>
-              <a href="#partnerships" className="hover:text-white transition-colors duration-300">
+              </button>
+              <button 
+                onClick={() => handleExternalLink('https://odia.dev/partnership-terms')} 
+                className="hover:text-white transition-colors duration-300"
+              >
                 Partnership Terms
-              </a>
+              </button>
             </div>
           </div>
 

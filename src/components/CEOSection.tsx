@@ -3,6 +3,14 @@ import ceoAustin from "@/assets/ceo-austin.jpg";
 import { Button } from "@/components/ui/button";
 
 const CEOSection = () => {
+  const handleVisionSpeech = () => {
+    window.open('https://odia.dev/ceo-vision', '_blank');
+  };
+
+  const handleLeadershipJourney = () => {
+    window.open('https://odia.dev/leadership-story', '_blank');
+  };
+
   return (
     <section className="py-20 bg-gradient-to-br from-navy to-navy-dark text-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -59,12 +67,14 @@ const CEOSection = () => {
               <Button 
                 variant="outline" 
                 className="border-gold text-gold hover:bg-gold hover:text-navy"
+                onClick={handleVisionSpeech}
               >
                 CEO's Vision Speech
               </Button>
               <Button 
                 variant="outline" 
                 className="border-white text-white hover:bg-white hover:text-navy"
+                onClick={handleLeadershipJourney}
               >
                 Leadership Journey
               </Button>

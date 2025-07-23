@@ -3,8 +3,15 @@ import africanWomanExecutive from "@/assets/african-woman-executive.jpg";
 import { Button } from "@/components/ui/button";
 
 const IntellectualExcellenceSection = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.querySelector(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section className="py-20 bg-white">
+    <section id="our-story" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Image */}
@@ -30,7 +37,10 @@ const IntellectualExcellenceSection = () => {
               
               {/* Play Button Overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <button className="w-20 h-20 bg-navy rounded-full flex items-center justify-center hover:bg-navy-light transition-colors duration-300">
+                <button 
+                  className="w-20 h-20 bg-navy rounded-full flex items-center justify-center hover:bg-navy-light transition-colors duration-300"
+                  onClick={() => window.open('https://odia.dev/story-video', '_blank')}
+                >
                   <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z"/>
                   </svg>
@@ -69,12 +79,14 @@ const IntellectualExcellenceSection = () => {
               <Button 
                 variant="outline" 
                 className="border-gold text-gold hover:bg-gold hover:text-gold-foreground"
+                onClick={() => scrollToSection('#our-story')}
               >
                 Our Story
               </Button>
               <Button 
                 variant="outline" 
                 className="border-gold text-gold hover:bg-gold hover:text-gold-foreground"
+                onClick={() => scrollToSection('#ai-solutions')}
               >
                 ODIA AI Solutions
               </Button>

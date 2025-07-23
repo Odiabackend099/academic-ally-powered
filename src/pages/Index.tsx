@@ -7,7 +7,9 @@ import IntellectualExcellenceSection from "@/components/IntellectualExcellenceSe
 import TeamSection from "@/components/TeamSection";
 import PartnershipsSection from "@/components/PartnershipsSection";
 import PressSection from "@/components/PressSection";
+import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 
 const Index = () => {
   return (
@@ -20,7 +22,9 @@ const Index = () => {
       <TeamSection />
       <PartnershipsSection />
       <PressSection />
+      <ContactSection />
       <Footer />
+      <ChatWidget />
     </div>
   );
 };

@@ -33,6 +33,18 @@ const PartnershipsSection = () => {
     }
   ];
 
+  const handlePartnershipOpportunities = () => {
+    window.open('https://odia.dev/partnerships', '_blank');
+  };
+
+  const handleContactPartnerships = () => {
+    window.open('mailto:partnerships@odia.dev', '_blank');
+  };
+
+  const handleLearnMore = (partnershipName: string) => {
+    window.open(`https://odia.dev/partnerships/${partnershipName.toLowerCase().replace(/\s+/g, '-')}`, '_blank');
+  };
+
   return (
     <section id="partnerships" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-6">
@@ -90,6 +102,7 @@ const PartnershipsSection = () => {
                 <Button 
                   variant="outline" 
                   className="w-full border-gold text-gold hover:bg-gold hover:text-gold-foreground"
+                  onClick={() => handleLearnMore(partnership.name)}
                 >
                   Learn More
                 </Button>
@@ -102,12 +115,14 @@ const PartnershipsSection = () => {
           <Button 
             variant="outline" 
             className="border-gold text-gold hover:bg-gold hover:text-gold-foreground mr-4"
+            onClick={handlePartnershipOpportunities}
           >
             Partnership Opportunities
           </Button>
           <Button 
             variant="outline" 
             className="border-gold text-gold hover:bg-gold hover:text-gold-foreground"
+            onClick={handleContactPartnerships}
           >
             Contact Partnerships
           </Button>

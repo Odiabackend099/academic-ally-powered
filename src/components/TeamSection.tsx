@@ -3,6 +3,14 @@ import odiaTeam from "@/assets/odia-team.jpg";
 import { Button } from "@/components/ui/button";
 
 const TeamSection = () => {
+  const handleMeetTeam = () => {
+    window.open('https://odia.dev/team', '_blank');
+  };
+
+  const handleResearchCulture = () => {
+    window.open('https://odia.dev/research-culture', '_blank');
+  };
+
   return (
     <section id="team" className="relative py-20 bg-navy text-white overflow-hidden">
       {/* Background Image */}
@@ -68,12 +76,14 @@ const TeamSection = () => {
             <Button 
               variant="outline" 
               className="border-white text-white hover:bg-white hover:text-navy"
+              onClick={handleMeetTeam}
             >
               Meet The Team
             </Button>
             <Button 
               variant="outline" 
               className="border-white text-white hover:bg-white hover:text-navy"
+              onClick={handleResearchCulture}
             >
               Research Culture
             </Button>

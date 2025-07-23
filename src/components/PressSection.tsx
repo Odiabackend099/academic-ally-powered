@@ -7,19 +7,26 @@ const PressSection = () => {
     {
       date: "January 15, 2025",
       title: "ODIA AI Partners with Mudiame International University for Research Excellence",
-      image: "/api/placeholder/400/300"
+      image: "/api/placeholder/400/300",
+      url: "https://odia.dev/press/mudiame-partnership"
     },
     {
       date: "December 20, 2024",
       title: "Nigeria's First Voice-Powered AI Infrastructure Company Launches",
-      image: "/api/placeholder/400/300"
+      image: "/api/placeholder/400/300",
+      url: "https://odia.dev/press/company-launch"
     },
     {
       date: "November 10, 2024",
       title: "ODIA AI Announces Global Partnerships with Cross AI International",
-      image: "/api/placeholder/400/300"
+      image: "/api/placeholder/400/300",
+      url: "https://odia.dev/press/global-partnerships"
     }
   ];
+
+  const handleReadMore = (url: string) => {
+    window.open(url, '_blank');
+  };
 
   return (
     <section id="press" className="py-20 bg-background">
@@ -56,6 +63,7 @@ const PressSection = () => {
                 <Button 
                   variant="outline" 
                   className="w-full bg-gold text-gold-foreground border-gold hover:bg-gold/90"
+                  onClick={() => handleReadMore(article.url)}
                 >
                   Read More
                 </Button>
