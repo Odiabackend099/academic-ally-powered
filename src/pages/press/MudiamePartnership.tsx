@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import PressArticle from "@/components/PressArticle";
 import Footer from "@/components/Footer";
+import partnershipImage from "@/assets/press-mudiame-partnership.jpg";
 
 const MudiamePartnership = () => {
   const content = `
@@ -66,7 +67,7 @@ const MudiamePartnership = () => {
         title="ODIA AI Partners with Mudiame International University for Research Excellence"
         author="ODIA AI Press Team"
         content={content}
-        imageUrl="/api/placeholder/800/400"
+        imageUrl={partnershipImage}
       />
       <Footer />
     </div>

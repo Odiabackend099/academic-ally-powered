@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import PressArticle from "@/components/PressArticle";
 import Footer from "@/components/Footer";
+import globalPartnershipsImage from "@/assets/press-global-partnerships.jpg";
 
 const GlobalPartnerships = () => {
   const content = `
@@ -117,7 +118,7 @@ const GlobalPartnerships = () => {
         title="ODIA AI Announces Global Partnerships with Cross AI International"
         author="ODIA AI Press Team"
         content={content}
-        imageUrl="/api/placeholder/800/400"
+        imageUrl={globalPartnershipsImage}
       />
       <Footer />
     </div>

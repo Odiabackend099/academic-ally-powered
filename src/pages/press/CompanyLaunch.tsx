@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import PressArticle from "@/components/PressArticle";
 import Footer from "@/components/Footer";
+import companyLaunchImage from "@/assets/press-company-launch.jpg";
 
 const CompanyLaunch = () => {
   const content = `
@@ -94,7 +95,7 @@ const CompanyLaunch = () => {
         title="Nigeria's First Voice-Powered AI Infrastructure Company Launches"
         author="ODIA AI Press Team"
         content={content}
-        imageUrl="/api/placeholder/800/400"
+        imageUrl={companyLaunchImage}
       />
       <Footer />
     </div>
