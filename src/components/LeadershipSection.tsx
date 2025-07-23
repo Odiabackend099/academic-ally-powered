@@ -1,36 +1,28 @@
-
 import ceoAustinHeadshot from "@/assets/ceo-austin-headshot.jpg";
 import cofounderEva from "@/assets/cofounder-eva.jpg";
 import secretaryGlory from "@/assets/secretary-glory.jpg";
 import { Button } from "@/components/ui/button";
-
 const LeadershipSection = () => {
-  const leaders = [
-    {
-      name: "Austyn Eguale",
-      title: "Chief Executive Officer",
-      image: ceoAustinHeadshot,
-      description: "Visionary leader driving Nigeria's AI revolution with university-backed research excellence and strategic partnerships.",
-      linkedin: "https://linkedin.com/in/austyn-eguale"
-    },
-    {
-      name: "Eva",
-      title: "Co-Founder",
-      image: cofounderEva,
-      description: "Innovation strategist and technical architect, spearheading ODIA AI's voice technology development and market expansion.",
-      linkedin: "https://linkedin.com/in/eva-odia"
-    },
-    {
-      name: "Glory",
-      title: "Executive Secretary",
-      image: secretaryGlory,
-      description: "Operations excellence leader ensuring seamless coordination across all ODIA AI initiatives and stakeholder relations.",
-      linkedin: "https://linkedin.com/in/glory-odia"
-    }
-  ];
-
-  return (
-    <section id="leadership" className="py-20 bg-white">
+  const leaders = [{
+    name: "Austyn Eguale",
+    title: "Chief Executive Officer",
+    image: ceoAustinHeadshot,
+    description: "Visionary leader driving Nigeria's AI revolution with university-backed research excellence and strategic partnerships.",
+    linkedin: "https://linkedin.com/in/austyn-eguale"
+  }, {
+    name: "Eva",
+    title: "Co-Founder",
+    image: cofounderEva,
+    description: "Innovation strategist and technical architect, spearheading ODIA AI's voice technology development and market expansion.",
+    linkedin: "https://linkedin.com/in/eva-odia"
+  }, {
+    name: "Glory",
+    title: "Executive Secretary",
+    image: secretaryGlory,
+    description: "Operations excellence leader ensuring seamless coordination across all ODIA AI initiatives and stakeholder relations.",
+    linkedin: "https://linkedin.com/in/glory-odia"
+  }];
+  return <section id="leadership" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <p className="text-muted-foreground text-sm font-medium tracking-wide uppercase mb-4">
@@ -49,15 +41,10 @@ const LeadershipSection = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-12">
-          {leaders.map((leader, index) => (
-            <div key={leader.name} className="text-center group">
+          {leaders.map((leader, index) => <div key={leader.name} className="text-center group">
               <div className="relative mb-6 overflow-hidden rounded-lg">
-                <img
-                  src={leader.image}
-                  alt={`${leader.name} - ${leader.title} at ODIA AI`}
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                
               </div>
               
               <div className="space-y-4">
@@ -74,30 +61,21 @@ const LeadershipSection = () => {
                   {leader.description}
                 </p>
                 
-                <Button
-                  variant="outline"
-                  className="border-gold text-gold hover:bg-gold hover:text-gold-foreground"
-                  onClick={() => window.open(leader.linkedin, '_blank')}
-                >
+                <Button variant="outline" className="border-gold text-gold hover:bg-gold hover:text-gold-foreground" onClick={() => window.open(leader.linkedin, '_blank')}>
                   Connect on LinkedIn
                 </Button>
               </div>
-            </div>
-          ))}
+            </div>)}
         </div>
 
         <div className="text-center mt-16">
-          <Button
-            variant="outline"
-            className="border-navy text-navy hover:bg-navy hover:text-white"
-            onClick={() => document.querySelector('#team')?.scrollIntoView({ behavior: 'smooth' })}
-          >
+          <Button variant="outline" className="border-navy text-navy hover:bg-navy hover:text-white" onClick={() => document.querySelector('#team')?.scrollIntoView({
+          behavior: 'smooth'
+        })}>
             Meet Our Full Team
           </Button>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default LeadershipSection;
