@@ -1,0 +1,7 @@
+# Handle client-side routing
+/*    /index.html   200
+
+# Handle legacy URLs
+/home    /    301
+/about   /#about    301
+/contact /#contact  301
