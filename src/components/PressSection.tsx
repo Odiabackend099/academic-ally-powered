@@ -25,7 +25,8 @@ const PressSection = () => {
   ];
 
   const handleReadMore = (url: string) => {
-    window.open(url, '_blank');
+    const route = url.replace('https://odia.dev', '');
+    window.open(route, '_self');
   };
 
   return (
