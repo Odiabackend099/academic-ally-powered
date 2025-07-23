@@ -7,11 +7,11 @@ const HeroSection = () => {
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(/lovable-uploads/01faf042-717a-47b7-98cc-6b68dc00bf59.png)` }}
+        style={{ backgroundImage: `url(${heroMountains})` }}
       />
       
-      {/* Dark Overlay for better text readability */}
-      <div className="absolute inset-0 bg-navy/70" />
+      {/* Navy Overlay */}
+      <div className="absolute inset-0 bg-navy/80" />
       
       {/* Geometric Pattern Overlay */}
       <div className="absolute inset-0 opacity-20">
