@@ -1,5 +1,5 @@
 
-import teamPhoto from "@/assets/team-photo.jpg";
+import africanTeamPhoto from "@/assets/african-team-photo.jpg";
 import { Button } from "@/components/ui/button";
 
 const TeamSection = () => {
@@ -8,7 +8,7 @@ const TeamSection = () => {
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
-        style={{ backgroundImage: `url(${teamPhoto})` }}
+        style={{ backgroundImage: `url(${africanTeamPhoto})` }}
       />
       
       {/* Navy Overlay */}
@@ -43,22 +43,22 @@ const TeamSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
               <img 
-                src={teamPhoto} 
-                alt="AI Research Team" 
+                src={africanTeamPhoto} 
+                alt="African AI Research Team at Mudiame International University" 
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
               <img 
-                src={teamPhoto} 
-                alt="Voice AI Engineers" 
+                src={africanTeamPhoto} 
+                alt="Nigerian Voice AI Engineers and Developers" 
                 className="w-full h-full object-cover object-center"
               />
             </div>
             <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
               <img 
-                src={teamPhoto} 
-                alt="University Collaboration" 
+                src={africanTeamPhoto} 
+                alt="University-Industry Collaboration Team" 
                 className="w-full h-full object-cover object-right"
               />
             </div>

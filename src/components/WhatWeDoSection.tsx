@@ -1,5 +1,5 @@
 
-import manExecutive from "@/assets/man-executive.jpg";
+import africanManExecutive from "@/assets/african-man-executive.jpg";
 import { Button } from "@/components/ui/button";
 
 const WhatWeDoSection = () => {
@@ -51,8 +51,8 @@ const WhatWeDoSection = () => {
           <div className="relative">
             <div className="relative overflow-hidden rounded-lg">
               <img 
-                src={manExecutive} 
-                alt="AI Executive presenting" 
+                src={africanManExecutive} 
+                alt="African AI Executive presenting voice AI solutions" 
                 className="w-full h-[600px] object-cover"
               />
               

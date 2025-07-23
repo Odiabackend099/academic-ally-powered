@@ -1,5 +1,5 @@
 
-import womanExecutive from "@/assets/woman-executive.jpg";
+import africanWomanExecutive from "@/assets/african-woman-executive.jpg";
 import { Button } from "@/components/ui/button";
 
 const IntellectualExcellenceSection = () => {
@@ -11,8 +11,8 @@ const IntellectualExcellenceSection = () => {
           <div className="relative">
             <div className="relative overflow-hidden">
               <img 
-                src={womanExecutive} 
-                alt="AI Research Professional" 
+                src={africanWomanExecutive} 
+                alt="African AI Research Professional and University Innovation Leader" 
                 className="w-full h-[600px] object-cover"
               />
               
