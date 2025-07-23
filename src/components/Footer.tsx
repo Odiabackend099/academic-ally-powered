@@ -28,7 +28,12 @@ const Footer = () => {
           <div className="text-right">
             {/* Logo */}
             <div className="mb-8">
-              <div className="inline-block border border-white p-4">
+              <div className="inline-flex items-center space-x-3 border border-white p-4">
+                <img 
+                  src="/lovable-uploads/0464e30d-bd4b-47c1-8246-8503bd90c3d1.png" 
+                  alt="ODIA AI Logo" 
+                  className="w-8 h-8"
+                />
                 <div className="text-2xl font-bold tracking-wider">
                   ODIA
                   <div className="text-xs font-normal tracking-wide">AI</div>

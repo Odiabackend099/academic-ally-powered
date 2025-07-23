@@ -30,9 +30,16 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="text-white text-2xl font-bold tracking-wider cursor-pointer"
+          <div className="flex items-center space-x-3 cursor-pointer"
                onClick={() => scrollToSection('#home')}>
-            ODIA AI
+            <img 
+              src="/lovable-uploads/0464e30d-bd4b-47c1-8246-8503bd90c3d1.png" 
+              alt="ODIA AI Logo" 
+              className="w-10 h-10"
+            />
+            <div className="text-white text-2xl font-bold tracking-wider">
+              ODIA AI
+            </div>
           </div>
 
           {/* Navigation Links */}
