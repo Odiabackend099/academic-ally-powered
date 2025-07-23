@@ -1,3 +1,4 @@
+
 import womanExecutive from "@/assets/woman-executive.jpg";
 import { Button } from "@/components/ui/button";
 
@@ -11,7 +12,7 @@ const IntellectualExcellenceSection = () => {
             <div className="relative overflow-hidden">
               <img 
                 src={womanExecutive} 
-                alt="Professional woman executive" 
+                alt="AI Research Professional" 
                 className="w-full h-[600px] object-cover"
               />
               
@@ -42,7 +43,7 @@ const IntellectualExcellenceSection = () => {
           <div>
             <div className="mb-6">
               <p className="text-muted-foreground text-sm font-medium tracking-wide uppercase mb-4">
-                Aligned Commitment
+                University-Backed Innovation
               </p>
               <h2 className="text-4xl lg:text-5xl font-light text-foreground leading-tight mb-8">
                 INTELLECTUAL
@@ -57,10 +58,10 @@ const IntellectualExcellenceSection = () => {
 
             <div className="prose prose-lg max-w-none mb-8">
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Our difference is defined by the alignment of deep internal research with the relationship 
-                side of investing. It is our intellect that drives the pursuit of investment excellence – 
-                and equally important is our empathy, which guides us in understanding each client's 
-                individual circumstances and aspirations.
+                Our difference is defined by the alignment of deep university research with the human 
+                side of artificial intelligence. It is our academic foundation that drives the pursuit 
+                of AI excellence – and equally important is our empathy, which guides us in understanding 
+                each client's individual circumstances and creating voice AI that truly connects with Nigerian culture.
               </p>
             </div>
 
@@ -75,7 +76,7 @@ const IntellectualExcellenceSection = () => {
                 variant="outline" 
                 className="border-gold text-gold hover:bg-gold hover:text-gold-foreground"
               >
-                IEQ Family Office
+                ODIA AI Solutions
               </Button>
             </div>
           </div>

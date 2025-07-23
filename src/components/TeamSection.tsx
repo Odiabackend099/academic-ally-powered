@@ -1,3 +1,4 @@
+
 import teamPhoto from "@/assets/team-photo.jpg";
 import { Button } from "@/components/ui/button";
 
@@ -17,23 +18,24 @@ const TeamSection = () => {
         <div className="text-center max-w-4xl mx-auto">
           <div className="mb-6">
             <p className="text-white/60 text-sm font-medium tracking-wide uppercase mb-4">
-              Our Team
+              Our Research Team
             </p>
             <h2 className="text-4xl lg:text-6xl font-light leading-tight mb-8">
-              YOUR BEST INTEREST IS OUR
+              YOUR AI SUCCESS IS OUR
               <br />
-              BEST INTEREST
+              AI SUCCESS
             </h2>
           </div>
 
           <div className="prose prose-lg max-w-none mb-12">
             <p className="text-white/80 leading-relaxed text-lg">
-              Fiduciaries, investors, and advisors. We are not just one, we are all, and we have over 30 years of 
-              cycle-tested experience demonstrating it. Additionally, as a predominantly employee-owned and 
-              independent firm, we have the flexibility to seek solutions tailored to your needs.
+              University researchers, AI engineers, and voice technology pioneers. We are not just one, we are all, 
+              and we have years of cycle-tested experience in artificial intelligence and machine learning. 
+              Additionally, as a university-backed and research-driven firm, we have the academic foundation 
+              to develop solutions tailored to Nigeria's unique needs.
             </p>
             <p className="text-white/60 italic mt-6">
-              All investment advisers have a fiduciary duty to act in their clients' best interests
+              Led by CEO Austyn Eguale and backed by Mudiame International University's research excellence
             </p>
           </div>
 
@@ -42,21 +44,21 @@ const TeamSection = () => {
             <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
               <img 
                 src={teamPhoto} 
-                alt="Team consultation" 
+                alt="AI Research Team" 
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
               <img 
                 src={teamPhoto} 
-                alt="Executive team" 
+                alt="Voice AI Engineers" 
                 className="w-full h-full object-cover object-center"
               />
             </div>
             <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
               <img 
                 src={teamPhoto} 
-                alt="Team collaboration" 
+                alt="University Collaboration" 
                 className="w-full h-full object-cover object-right"
               />
             </div>
@@ -73,7 +75,7 @@ const TeamSection = () => {
               variant="outline" 
               className="border-white text-white hover:bg-white hover:text-navy"
             >
-              Our Culture
+              Research Culture
             </Button>
           </div>
         </div>

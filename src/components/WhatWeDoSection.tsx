@@ -1,9 +1,10 @@
+
 import manExecutive from "@/assets/man-executive.jpg";
 import { Button } from "@/components/ui/button";
 
 const WhatWeDoSection = () => {
   return (
-    <section id="what-we-do" className="py-20 bg-background">
+    <section id="ai-solutions" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
@@ -15,7 +16,7 @@ const WhatWeDoSection = () => {
               <h2 className="text-4xl lg:text-5xl font-light text-foreground leading-tight mb-8">
                 WE ARE YOUR CHIEF
                 <br />
-                INVESTMENT
+                AI
                 <br />
                 OFFICERS
               </h2>
@@ -23,10 +24,10 @@ const WhatWeDoSection = () => {
 
             <div className="prose prose-lg max-w-none mb-8">
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Applying our expertise and leveraging our vast network, we strive to develop customized solutions 
-                that can utilize both public markets and exclusive private investment opportunities. From sourcing, 
-                negotiating, and structuring private investments, to monitoring portfolio performance and managing 
-                risk tolerance, we are on a quest to surpass each client's financial objectives.
+                Applying our university-backed research expertise and leveraging our vast AI network, we develop 
+                customized voice AI solutions that utilize both public cloud infrastructure and exclusive private 
+                AI models. From Agent Lexi to Agent ODIA, from emergency response systems to intelligent business 
+                automation, we are on a quest to revolutionize how Nigeria experiences artificial intelligence.
               </p>
             </div>
 
@@ -35,13 +36,13 @@ const WhatWeDoSection = () => {
                 variant="outline" 
                 className="border-gold text-gold hover:bg-gold hover:text-gold-foreground"
               >
-                The IEQ Difference
+                The ODIA Difference
               </Button>
               <Button 
                 variant="outline" 
                 className="border-gold text-gold hover:bg-gold hover:text-gold-foreground"
               >
-                Tech-Forward Experience
+                AI-Forward Experience
               </Button>
             </div>
           </div>
@@ -51,7 +52,7 @@ const WhatWeDoSection = () => {
             <div className="relative overflow-hidden rounded-lg">
               <img 
                 src={manExecutive} 
-                alt="Executive speaking" 
+                alt="AI Executive presenting" 
                 className="w-full h-[600px] object-cover"
               />
               

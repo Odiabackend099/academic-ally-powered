@@ -1,21 +1,22 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 const PressSection = () => {
   const articles = [
     {
-      date: "September 17, 2024",
-      title: "IEQ Capital Recognized as a Top RIA by Barron's",
+      date: "January 15, 2025",
+      title: "ODIA AI Partners with Mudiame International University for Research Excellence",
       image: "/api/placeholder/400/300"
     },
     {
-      date: "January 03, 2025",
-      title: "IEQ Capital Announces Key Partner Promotions",
+      date: "December 20, 2024",
+      title: "Nigeria's First Voice-Powered AI Infrastructure Company Launches",
       image: "/api/placeholder/400/300"
     },
     {
-      date: "January 20, 2023",
-      title: "IEQ Capital Welcomes Stone Point Capital as Strategic Partner",
+      date: "November 10, 2024",
+      title: "ODIA AI Announces Global Partnerships with Cross AI International",
       image: "/api/placeholder/400/300"
     }
   ];
@@ -43,7 +44,7 @@ const PressSection = () => {
                 
                 {/* Content overlay */}
                 <div className="absolute top-6 left-6 text-white">
-                  <div className="text-lg font-semibold mb-1">IEQ Capital</div>
+                  <div className="text-lg font-semibold mb-1">ODIA AI</div>
                   <div className="text-sm opacity-80">{article.date}</div>
                 </div>
               </div>

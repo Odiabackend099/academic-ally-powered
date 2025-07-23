@@ -1,15 +1,16 @@
+
 import { Button } from "@/components/ui/button";
 
 const Navigation = () => {
   const navItems = [
     { name: "Home", href: "#home" },
-    { name: "What We Do", href: "#what-we-do" },
-    { name: "Family Office", href: "#family-office" },
+    { name: "AI Solutions", href: "#ai-solutions" },
+    { name: "Voice Agents", href: "#voice-agents" },
     { name: "Our Story", href: "#our-story" },
     { name: "Team", href: "#team" },
+    { name: "Partnerships", href: "#partnerships" },
     { name: "Press", href: "#press" },
     { name: "Resources", href: "#resources" },
-    { name: "Talent", href: "#talent" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -19,7 +20,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="text-white text-2xl font-bold tracking-wider">
-            IEQ
+            ODIA AI
           </div>
 
           {/* Navigation Links */}
@@ -38,7 +39,7 @@ const Navigation = () => {
               variant="ghost" 
               className="text-white hover:text-gold hover:bg-transparent"
             >
-              Client Login
+              Demo Login
             </Button>
           </div>
 
