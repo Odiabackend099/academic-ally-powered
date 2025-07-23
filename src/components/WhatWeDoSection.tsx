@@ -1,5 +1,5 @@
 
-import africanManExecutive from "@/assets/african-man-executive.jpg";
+import ceoAustin from "@/assets/ceo-austin.jpg";
 import { Button } from "@/components/ui/button";
 
 const WhatWeDoSection = () => {
@@ -24,8 +24,8 @@ const WhatWeDoSection = () => {
 
             <div className="prose prose-lg max-w-none mb-8">
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Applying our university-backed research expertise and leveraging our vast AI network, we develop 
-                customized voice AI solutions that utilize both public cloud infrastructure and exclusive private 
+                Led by CEO Austyn Eguale, we apply our university-backed research expertise and leverage our vast AI network 
+                to develop customized voice AI solutions that utilize both public cloud infrastructure and exclusive private 
                 AI models. From Agent Lexi to Agent ODIA, from emergency response systems to intelligent business 
                 automation, we are on a quest to revolutionize how Nigeria experiences artificial intelligence.
               </p>
@@ -47,12 +47,12 @@ const WhatWeDoSection = () => {
             </div>
           </div>
 
-          {/* Image */}
+          {/* CEO Image */}
           <div className="relative">
             <div className="relative overflow-hidden rounded-lg">
               <img 
-                src={africanManExecutive} 
-                alt="African AI Executive presenting voice AI solutions" 
+                src={ceoAustin} 
+                alt="CEO Austyn Eguale presenting ODIA AI's voice AI solutions" 
                 className="w-full h-[600px] object-cover"
               />
               

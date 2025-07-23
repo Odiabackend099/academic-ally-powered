@@ -1,5 +1,5 @@
 
-import africanTeamPhoto from "@/assets/african-team-photo.jpg";
+import odiaTeam from "@/assets/odia-team.jpg";
 import { Button } from "@/components/ui/button";
 
 const TeamSection = () => {
@@ -8,7 +8,7 @@ const TeamSection = () => {
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
-        style={{ backgroundImage: `url(${africanTeamPhoto})` }}
+        style={{ backgroundImage: `url(${odiaTeam})` }}
       />
       
       {/* Navy Overlay */}
@@ -29,10 +29,10 @@ const TeamSection = () => {
 
           <div className="prose prose-lg max-w-none mb-12">
             <p className="text-white/80 leading-relaxed text-lg">
-              University researchers, AI engineers, and voice technology pioneers. We are not just one, we are all, 
-              and we have years of cycle-tested experience in artificial intelligence and machine learning. 
-              Additionally, as a university-backed and research-driven firm, we have the academic foundation 
-              to develop solutions tailored to Nigeria's unique needs.
+              University researchers, AI engineers, and voice technology pioneers led by CEO Austyn Eguale. 
+              We are not just one, we are all, and we have years of cycle-tested experience in artificial intelligence 
+              and machine learning. Additionally, as a university-backed and research-driven firm, we have the academic 
+              foundation to develop solutions tailored to Nigeria's unique needs.
             </p>
             <p className="text-white/60 italic mt-6">
               Led by CEO Austyn Eguale and backed by Mudiame International University's research excellence
@@ -43,21 +43,21 @@ const TeamSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
               <img 
-                src={africanTeamPhoto} 
-                alt="African AI Research Team at Mudiame International University" 
+                src={odiaTeam} 
+                alt="ODIA AI Research Team at Mudiame International University" 
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
               <img 
-                src={africanTeamPhoto} 
+                src={odiaTeam} 
                 alt="Nigerian Voice AI Engineers and Developers" 
                 className="w-full h-full object-cover object-center"
               />
             </div>
             <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
               <img 
-                src={africanTeamPhoto} 
+                src={odiaTeam} 
                 alt="University-Industry Collaboration Team" 
                 className="w-full h-full object-cover object-right"
               />
