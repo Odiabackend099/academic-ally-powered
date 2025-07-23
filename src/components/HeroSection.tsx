@@ -34,9 +34,9 @@ const HeroSection = () => {
             Powered by Mudiame International University
           </p>
           <h1 className="text-white text-6xl md:text-7xl lg:text-8xl font-light tracking-wider leading-tight">
-            THE PURSUIT OF
+            NIGERIA'S FIRST
             <br />
-            <span className="block">AI EXCELLENCE</span>
+            <span className="block">VOICE AI INFRASTRUCTURE</span>
           </h1>
         </div>
       </div>
