@@ -1,5 +1,5 @@
 
-import ceoAustin from "@/assets/ceo-austin.jpg";
+import ceoAustinHeadshot from "@/assets/ceo-austin-headshot.jpg";
 import { Button } from "@/components/ui/button";
 
 const WhatWeDoSection = () => {
@@ -51,7 +51,7 @@ const WhatWeDoSection = () => {
           <div className="relative">
             <div className="relative overflow-hidden rounded-lg">
               <img 
-                src={ceoAustin} 
+                src={ceoAustinHeadshot} 
                 alt="CEO Austyn Eguale presenting ODIA AI's voice AI solutions" 
                 className="w-full h-[600px] object-cover"
               />

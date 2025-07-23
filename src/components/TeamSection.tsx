@@ -1,5 +1,7 @@
 
-import odiaTeam from "@/assets/odia-team.jpg";
+import ceoAustinHeadshot from "@/assets/ceo-austin-headshot.jpg";
+import cofounderEva from "@/assets/cofounder-eva.jpg";
+import secretaryGlory from "@/assets/secretary-glory.jpg";
 import { Button } from "@/components/ui/button";
 
 const TeamSection = () => {
@@ -11,16 +13,28 @@ const TeamSection = () => {
     window.open('https://odia.dev/research-culture', '_blank');
   };
 
+  const teamMembers = [
+    {
+      name: "CEO Austyn Eguale",
+      role: "Chief Executive Officer",
+      image: ceoAustinHeadshot
+    },
+    {
+      name: "Co-founder Eva",
+      role: "Co-Founder & Innovation Lead",
+      image: cofounderEva
+    },
+    {
+      name: "Secretary Glory",
+      role: "Executive Secretary",
+      image: secretaryGlory
+    }
+  ];
+
   return (
     <section id="team" className="relative py-20 bg-navy text-white overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
-        style={{ backgroundImage: `url(${odiaTeam})` }}
-      />
-      
-      {/* Navy Overlay */}
-      <div className="absolute inset-0 bg-navy/80" />
+      {/* Navy Background */}
+      <div className="absolute inset-0 bg-navy" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <div className="text-center max-w-4xl mx-auto">
@@ -47,29 +61,23 @@ const TeamSection = () => {
             </p>
           </div>
 
-          {/* Team Photos Grid */}
+          {/* Leadership Team Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
-              <img 
-                src={odiaTeam} 
-                alt="ODIA AI Research Team at Mudiame International University" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
-              <img 
-                src={odiaTeam} 
-                alt="Nigerian Voice AI Engineers and Developers" 
-                className="w-full h-full object-cover object-center"
-              />
-            </div>
-            <div className="relative h-64 bg-white/10 rounded-lg overflow-hidden">
-              <img 
-                src={odiaTeam} 
-                alt="University-Industry Collaboration Team" 
-                className="w-full h-full object-cover object-right"
-              />
-            </div>
+            {teamMembers.map((member, index) => (
+              <div key={member.name} className="relative group">
+                <div className="relative h-80 bg-white/10 rounded-lg overflow-hidden">
+                  <img 
+                    src={member.image} 
+                    alt={`${member.name} - ${member.role} at ODIA AI`} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-navy-dark/90 to-transparent p-4">
+                    <h3 className="text-white font-semibold text-lg">{member.name}</h3>
+                    <p className="text-gold text-sm">{member.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
