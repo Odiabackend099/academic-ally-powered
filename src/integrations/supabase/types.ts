@@ -14,13 +14,334 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      clan_levels: {
+        Row: {
+          created_at: string
+          energy_boost: number | null
+          id: string
+          level: number
+          name: string
+          required_coins: number
+        }
+        Insert: {
+          created_at?: string
+          energy_boost?: number | null
+          id?: string
+          level: number
+          name: string
+          required_coins: number
+        }
+        Update: {
+          created_at?: string
+          energy_boost?: number | null
+          id?: string
+          level?: number
+          name?: string
+          required_coins?: number
+        }
+        Relationships: []
+      }
+      clan_members: {
+        Row: {
+          clan_id: string | null
+          coins_contributed: number | null
+          id: string
+          joined_at: string
+          role: string | null
+          telegram_id: number
+        }
+        Insert: {
+          clan_id?: string | null
+          coins_contributed?: number | null
+          id?: string
+          joined_at?: string
+          role?: string | null
+          telegram_id: number
+        }
+        Update: {
+          clan_id?: string | null
+          coins_contributed?: number | null
+          id?: string
+          joined_at?: string
+          role?: string | null
+          telegram_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clan_members_clan_id_fkey"
+            columns: ["clan_id"]
+            isOneToOne: false
+            referencedRelation: "clans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clan_members_clan_id_fkey"
+            columns: ["clan_id"]
+            isOneToOne: false
+            referencedRelation: "real_clan_leaderboard"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clan_mission_progress: {
+        Row: {
+          clan_id: string | null
+          completed_at: string | null
+          created_at: string
+          id: string
+          mission_id: string | null
+          progress: number | null
+        }
+        Insert: {
+          clan_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          mission_id?: string | null
+          progress?: number | null
+        }
+        Update: {
+          clan_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          mission_id?: string | null
+          progress?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clan_mission_progress_clan_id_fkey"
+            columns: ["clan_id"]
+            isOneToOne: false
+            referencedRelation: "clans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clan_mission_progress_clan_id_fkey"
+            columns: ["clan_id"]
+            isOneToOne: false
+            referencedRelation: "real_clan_leaderboard"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clan_mission_progress_mission_id_fkey"
+            columns: ["mission_id"]
+            isOneToOne: false
+            referencedRelation: "clan_missions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clan_missions: {
+        Row: {
+          created_at: string
+          description: string | null
+          difficulty: string | null
+          id: string
+          is_active: boolean | null
+          required_members: number | null
+          reward_coins: number | null
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          difficulty?: string | null
+          id?: string
+          is_active?: boolean | null
+          required_members?: number | null
+          reward_coins?: number | null
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          difficulty?: string | null
+          id?: string
+          is_active?: boolean | null
+          required_members?: number | null
+          reward_coins?: number | null
+          title?: string
+        }
+        Relationships: []
+      }
+      clans: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          image: string | null
+          level: number | null
+          member_count: number | null
+          missions_completed: number | null
+          name: string
+          telegram_link: string | null
+          total_coins: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image?: string | null
+          level?: number | null
+          member_count?: number | null
+          missions_completed?: number | null
+          name: string
+          telegram_link?: string | null
+          total_coins?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image?: string | null
+          level?: number | null
+          member_count?: number | null
+          missions_completed?: number | null
+          name?: string
+          telegram_link?: string | null
+          total_coins?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          earnings: number | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          photo_url: string | null
+          referral_name: string | null
+          telegram_id: number
+          updated_at: string
+          username: string | null
+        }
+        Insert: {
+          created_at?: string
+          earnings?: number | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          photo_url?: string | null
+          referral_name?: string | null
+          telegram_id: number
+          updated_at?: string
+          username?: string | null
+        }
+        Update: {
+          created_at?: string
+          earnings?: number | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          photo_url?: string | null
+          referral_name?: string | null
+          telegram_id?: number
+          updated_at?: string
+          username?: string | null
+        }
+        Relationships: []
+      }
+      rate_limits: {
+        Row: {
+          action: string
+          count: number | null
+          created_at: string | null
+          id: string
+          identifier: string
+          reset_time: string | null
+        }
+        Insert: {
+          action: string
+          count?: number | null
+          created_at?: string | null
+          id?: string
+          identifier: string
+          reset_time?: string | null
+        }
+        Update: {
+          action?: string
+          count?: number | null
+          created_at?: string | null
+          id?: string
+          identifier?: string
+          reset_time?: string | null
+        }
+        Relationships: []
+      }
+      tasks: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean | null
+          reward_coins: number | null
+          task_type: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          reward_coins?: number | null
+          task_type?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          reward_coins?: number | null
+          task_type?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      real_clan_leaderboard: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string | null
+          image: string | null
+          level: number | null
+          member_count: number | null
+          missions_completed: number | null
+          name: string | null
+          rank: number | null
+          telegram_link: string | null
+          total_coins: number | null
+        }
+        Relationships: []
+      }
+      real_user_leaderboard: {
+        Row: {
+          earnings: number | null
+          first_name: string | null
+          rank: number | null
+          referral_name: string | null
+          telegram_id: number | null
+          username: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      get_current_telegram_id: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      user_owns_profile: {
+        Args: { profile_telegram_id: number }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
