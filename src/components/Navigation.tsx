@@ -1,28 +1,60 @@
 
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
+  const navigate = useNavigate();
+  
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "AI Solutions", href: "#ai-solutions" },
-    { name: "Voice Agents", href: "#voice-agents" },
-    { name: "Our Story", href: "#our-story" },
-    { name: "Team", href: "#team" },
-    { name: "Partnerships", href: "#partnerships" },
-    { name: "Press", href: "#press" },
-    { name: "Resources", href: "#resources" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "#home", type: "scroll" },
+    { name: "AI Solutions", href: "/ai-solutions", type: "navigate" },
+    { name: "Voice Agents", href: "/voice-agents", type: "navigate" },
+    { name: "Our Story", href: "/our-story", type: "navigate" },
+    { name: "Team", href: "#team", type: "scroll" },
+    { name: "Partnerships", href: "#partnerships", type: "scroll" },
+    { name: "Press", href: "#press", type: "scroll" },
+    { name: "Resources", href: "/resources", type: "navigate" },
+    { name: "Contact", href: "#contact", type: "scroll" },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleNavigation = (item: { name: string; href: string; type: string }) => {
+    if (item.type === 'scroll') {
+      // Handle scroll navigation for home page sections
+      if (window.location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          const element = document.querySelector(item.href);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        const element = document.querySelector(item.href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else {
+      // Handle page navigation
+      navigate(item.href);
     }
   };
 
   const handleDemoLogin = () => {
-    window.open('https://odia.dev/demo', '_blank');
+    // Open ChatWidget or navigate to demo page
+    const chatWidget = document.querySelector('[data-chat-widget]') as HTMLButtonElement;
+    if (chatWidget) {
+      // Trigger chat widget open
+      chatWidget.click();
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.querySelector('#voice-demo');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
   };
 
   return (
@@ -31,7 +63,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3 cursor-pointer"
-               onClick={() => scrollToSection('#home')}>
+               onClick={() => navigate('/')}>
             <img 
               src="/lovable-uploads/0464e30d-bd4b-47c1-8246-8503bd90c3d1.png" 
               alt="ODIA AI Logo" 
@@ -47,7 +79,7 @@ const Navigation = () => {
             {navItems.map((item) => (
               <button
                 key={item.name}
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => handleNavigation(item)}
                 className="text-white hover:text-gold transition-colors duration-300 text-sm font-medium"
               >
                 {item.name}
@@ -59,7 +91,7 @@ const Navigation = () => {
               className="text-white hover:text-gold hover:bg-transparent"
               onClick={handleDemoLogin}
             >
-              Demo Login
+              Start Voice Chat
             </Button>
           </div>
 

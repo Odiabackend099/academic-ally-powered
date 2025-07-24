@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { X, MessageCircle, Mic, MicOff, Phone, PhoneOff, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean; timestamp: Date }>>([
     {
-      text: "Hello! I'm ODIA AI Assistant. How can I help you with our voice AI solutions? Try voice mode for a real conversation!",
+      text: "Hello! I'm ODIA AI Assistant, Nigeria's first voice AI infrastructure. I can help you with voice agents, WhatsApp automation, emergency response solutions, and more. Try voice mode to experience our real-time voice AI!",
       isUser: false,
       timestamp: new Date()
     }
@@ -79,10 +80,12 @@ const ChatWidget = () => {
     // Simulate AI response for text chat
     setTimeout(() => {
       const responses = [
-        "Thank you for your interest! Our AI agents can transform your business operations. Would you like to schedule a demo with CEO Austyn Eguale?",
-        "ODIA AI specializes in voice-powered solutions for Nigerian businesses. Our agents handle customer service, sales, and emergency response 24/7.",
-        "We offer multilingual support and can integrate with your existing systems. What specific use case are you interested in exploring?",
-        "Our voice AI infrastructure is already helping businesses across Nigeria. Let me connect you with our team for a personalized consultation."
+        "Thank you for your interest! Our voice AI agents (Lexi, ODIA, MISS, Atlas, and Miss Legal) can transform your business operations. Would you like to schedule a demo with CEO Austyn Eguale?",
+        "ODIA AI specializes in voice-powered solutions for Nigerian businesses. Our agents handle customer service, sales, healthcare, emergency response, and legal assistance 24/7 with natural Nigerian accents.",
+        "We offer multilingual support (English, Pidgin, Hausa, Yoruba, Igbo) and can integrate with your existing systems. What specific use case are you interested in exploring?",
+        "Our voice AI infrastructure is already helping businesses across Nigeria. We're partnered with Mudiame University, Cross AI International, and Intech Wealth. Let me connect you with our team for a personalized consultation.",
+        "Cross AI Protect provides emergency response coordination, while our WhatsApp automation handles business communications. Which solution interests you most?",
+        "As Nigeria's first voice AI infrastructure company, we understand local business contexts and cultural nuances. Try our voice mode to experience the difference!"
       ];
       
       const randomResponse = responses[Math.floor(Math.random() * responses.length)];
@@ -108,9 +111,18 @@ const ChatWidget = () => {
         // Request microphone permission
         await navigator.mediaDevices.getUserMedia({ audio: true });
         
-        // For demo purposes - replace with your actual ElevenLabs agent ID
+        // Get signed URL from our Supabase function
+        const { data, error } = await supabase.functions.invoke('odia-voice-chat');
+        
+        if (error) throw error;
+        
+        if (!data.signed_url) {
+          throw new Error('No signed URL received');
+        }
+
+        // Start conversation with ElevenLabs using signed URL
         await conversation.startSession({
-          agentId: "your-elevenlabs-agent-id" // Replace with actual agent ID
+          agentId: data.signed_url.split('agent_id=')[1]?.split('&')[0] || 'your-agent-id'
         });
       }
     } catch (error) {
@@ -141,6 +153,7 @@ const ChatWidget = () => {
             onClick={() => setIsOpen(true)}
             className="w-16 h-16 rounded-full bg-navy hover:bg-navy-light text-white shadow-lg relative"
             size="icon"
+            data-chat-widget
           >
             <MessageCircle className="w-8 h-8" />
             {conversation.status === 'connected' && (

@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import DemoModal from "./DemoModal";
+import OdiaVoiceModal from "./DemoModal";
 import CallScheduler from "./CallScheduler";
 import { MessageCircle, Mic, Calendar } from "lucide-react";
 
 const ActionButtons = () => {
-  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+  const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
   const [isCallSchedulerOpen, setIsCallSchedulerOpen] = useState(false);
 
   const handleWhatsAppOnboarding = () => {
     const message = encodeURIComponent(
-      "Hello ODIA AI! I'm interested in starting the onboarding process for your voice AI solutions. Please guide me through the next steps."
+      "Hello ODIA AI! I'm interested in your voice AI solutions. I'd like to start the onboarding process. Please connect me with your team to discuss how your voice agents can transform my business operations."
     );
     window.open(`https://wa.me/+2348123456789?text=${message}`, '_blank');
   };
 
-  const handleTryLiveDemo = () => {
-    setIsDemoModalOpen(true);
+  const handleStartVoiceChat = () => {
+    setIsVoiceModalOpen(true);
   };
 
   const handleScheduleCall = () => {
@@ -35,11 +35,11 @@ const ActionButtons = () => {
         </Button>
         
         <Button 
-          onClick={handleTryLiveDemo}
+          onClick={handleStartVoiceChat}
           className="bg-gold hover:bg-gold/90 text-navy"
         >
           <Mic className="w-4 h-4 mr-2" />
-          Try Live Demo
+          Start Voice Chat
         </Button>
         
         <Button 
@@ -52,9 +52,9 @@ const ActionButtons = () => {
         </Button>
       </div>
 
-      <DemoModal 
-        isOpen={isDemoModalOpen} 
-        onClose={() => setIsDemoModalOpen(false)} 
+      <OdiaVoiceModal 
+        isOpen={isVoiceModalOpen} 
+        onClose={() => setIsVoiceModalOpen(false)} 
       />
       
       <CallScheduler 
