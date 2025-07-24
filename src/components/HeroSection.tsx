@@ -50,7 +50,7 @@ const HeroSection = () => {
               Start Free Demo
             </button>
             <a 
-              href="https://wa.me/+2347000000000?text=I'm interested in ODIA AI"
+              href="https://wa.me/+2348123456789?text=Hello%20ODIA%20AI!%20I'm%20interested%20in%20your%20voice%20AI%20solutions%20for%20my%20business.%20Please%20tell%20me%20more."
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white font-semibold py-4 px-8 rounded-lg text-lg border border-white/30 backdrop-blur-sm transition-all duration-300"

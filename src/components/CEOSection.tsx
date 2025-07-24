@@ -1,14 +1,14 @@
 
-import ceoAustinHeadshot from "@/assets/ceo-austin-headshot.jpg";
+import ceoAustynProfessional from "@/assets/ceo-austyn-professional.jpg";
 import { Button } from "@/components/ui/button";
 
 const CEOSection = () => {
   const handleVisionSpeech = () => {
-    window.open('https://odia.dev/ceo-vision', '_blank');
+    window.location.href = '/ceo-vision';
   };
 
   const handleLeadershipJourney = () => {
-    window.open('https://odia.dev/leadership-story', '_blank');
+    window.location.href = '/leadership-journey';
   };
 
   return (
@@ -19,7 +19,7 @@ const CEOSection = () => {
           <div className="relative">
             <div className="relative overflow-hidden rounded-lg">
               <img 
-                src={ceoAustinHeadshot} 
+                src={ceoAustynProfessional} 
                 alt="CEO Austyn Eguale of ODIA AI - Leading Nigeria's Voice AI Revolution" 
                 className="w-full h-[600px] object-cover"
               />

@@ -34,15 +34,20 @@ const PartnershipsSection = () => {
   ];
 
   const handlePartnershipOpportunities = () => {
-    window.open('https://odia.dev/partnerships', '_blank');
+    window.open('mailto:partnerships@odia.dev?subject=Partnership Opportunity Inquiry', '_blank');
   };
 
   const handleContactPartnerships = () => {
-    window.open('mailto:partnerships@odia.dev', '_blank');
+    window.open('mailto:partnerships@odia.dev?subject=Partnership Contact Request', '_blank');
   };
 
   const handleLearnMore = (partnershipName: string) => {
-    window.open(`https://odia.dev/partnerships/${partnershipName.toLowerCase().replace(/\s+/g, '-')}`, '_blank');
+    const routes: { [key: string]: string } = {
+      'Mudiame International University': '/partnerships/mudiame',
+      'Cross AI International': '/partnerships/cross-ai', 
+      'Intech Wealth Advisory AI': '/partnerships/intech-wealth'
+    };
+    window.location.href = routes[partnershipName] || '/';
   };
 
   return (
