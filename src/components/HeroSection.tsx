@@ -2,6 +2,13 @@
 import heroMountains from "@/assets/hero-mountains.jpg";
 
 const HeroSection = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -10,66 +17,93 @@ const HeroSection = () => {
         style={{ backgroundImage: `url(/lovable-uploads/01faf042-717a-47b7-98cc-6b68dc00bf59.png)` }}
       />
       
-      {/* Dark Overlay for better text readability */}
-      <div className="absolute inset-0 bg-navy/70" />
+      {/* Enhanced Dark Overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/70 to-navy/90" />
       
-      {/* Geometric Pattern Overlay */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute bottom-0 right-0 w-1/2 h-1/2">
-          <svg viewBox="0 0 100 100" className="w-full h-full">
-            <defs>
-              <pattern id="zigzag" patternUnits="userSpaceOnUse" width="20" height="20">
-                <path d="M0,10 L10,0 L20,10 L20,20 L10,10 L0,20 Z" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#zigzag)" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-        <div className="mb-8">
-          <p className="text-white/80 text-lg mb-4 tracking-wide">
-            Powered by Mudiame International University
-          </p>
-          <h1 className="text-white text-6xl md:text-7xl lg:text-8xl font-light tracking-wider leading-tight">
-            NIGERIA'S FIRST
-            <br />
-            <span className="block">VOICE AI INFRASTRUCTURE</span>
-          </h1>
-        </div>
-      </div>
-
-      {/* Awards Section */}
-      <div className="absolute bottom-0 left-0 right-0 bg-navy-dark/90 py-8">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="text-white mb-4 md:mb-0">
-              <h3 className="text-lg font-medium mb-2">Academic Excellence & Global Partnerships</h3>
-            </div>
-            
-            <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-12">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white mb-1">🏛️ UNIVERSITY BACKED</div>
-                <p className="text-white/80 text-sm">Powered by Mudiame International University</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <span className="text-navy font-bold text-xs">Global Partners</span>
-                </div>
-                <p className="text-white/80 text-sm">Cross AI International & Intech Wealth Advisory AI</p>
-              </div>
-            </div>
+      {/* Content Container - Optimized for Mobile */}
+      <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Primary Content - Progressive Disclosure Layer 1 */}
+        <div className="mb-8 sm:mb-12">
+          {/* University Badge - Credibility First */}
+          <div className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-white/20">
+            <span className="text-gold text-sm font-medium tracking-wide">🏛️ UNIVERSITY BACKED</span>
           </div>
           
-          <div className="mt-6 pt-6 border-t border-white/20">
-            <p className="text-white/60 text-xs italic">
-              ODIA AI is Nigeria's first voice-powered AI infrastructure company, backed by academic excellence and international partnerships. 
-              Our university foundation ensures research-grade innovation and global standards. 
-              <span className="underline cursor-pointer">Learn More</span>
-            </p>
+          {/* Main Headline - Mobile Optimized */}
+          <h1 className="text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-wide leading-tight mb-6">
+            NIGERIA'S FIRST
+            <br />
+            <span className="block text-gold font-medium">VOICE AI INFRASTRUCTURE</span>
+          </h1>
+          
+          {/* Clear Value Proposition */}
+          <p className="text-white/90 text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto mb-8 leading-relaxed">
+            Transform your business with university-backed AI that speaks your language
+          </p>
+          
+          {/* Primary CTAs - Mobile Optimized */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="w-full sm:w-auto bg-gold hover:bg-gold/90 text-navy font-semibold py-4 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Start Free Demo
+            </button>
+            <a 
+              href="https://wa.me/+2347000000000?text=I'm interested in ODIA AI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white font-semibold py-4 px-8 rounded-lg text-lg border border-white/30 backdrop-blur-sm transition-all duration-300"
+            >
+              WhatsApp Demo
+            </a>
+          </div>
+          
+          {/* Quick Stats - Social Proof */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 text-white/80 text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-gold rounded-full"></div>
+              <span>University Research Grade</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-gold rounded-full"></div>
+              <span>24/7 Nigerian Languages</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-gold rounded-full"></div>
+              <span>Enterprise Security</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Progressive Disclosure Layer 2 - Partnership Details */}
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-navy-dark/95 to-transparent backdrop-blur-sm py-6 sm:py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center sm:text-left">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              {/* Academic Excellence */}
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm border border-white/20">
+                  <span className="text-gold text-lg">🎓</span>
+                </div>
+                <div>
+                  <p className="text-white font-medium text-sm sm:text-base">Mudiame International University</p>
+                  <p className="text-white/60 text-xs sm:text-sm">Academic Research Foundation</p>
+                </div>
+              </div>
+              
+              {/* Global Partnerships */}
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm border border-white/20">
+                  <span className="text-gold text-lg">🌍</span>
+                </div>
+                <div>
+                  <p className="text-white font-medium text-sm sm:text-base">Global AI Partners</p>
+                  <p className="text-white/60 text-xs sm:text-sm">Cross AI International Network</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
