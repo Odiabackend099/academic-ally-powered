@@ -18,8 +18,6 @@ const ChatWidget = () => {
     }
   ]);
   const [isVoiceMode, setIsVoiceMode] = useState(false);
-  const [apiKey, setApiKey] = useState('');
-  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -99,11 +97,6 @@ const ChatWidget = () => {
   };
 
   const handleVoiceToggle = async () => {
-    if (!apiKey && !isVoiceMode) {
-      setShowApiKeyInput(true);
-      return;
-    }
-
     try {
       if (conversation.status === 'connected') {
         await conversation.endSession();
@@ -111,7 +104,7 @@ const ChatWidget = () => {
         // Request microphone permission
         await navigator.mediaDevices.getUserMedia({ audio: true });
         
-        // Get signed URL from our Supabase function
+        // Get signed URL from our Supabase function (API key handled server-side)
         const { data, error } = await supabase.functions.invoke('odia-voice-chat');
         
         if (error) throw error;
@@ -121,28 +114,19 @@ const ChatWidget = () => {
         }
 
         // Start conversation with ElevenLabs using signed URL
-        await conversation.startSession({
-          agentId: data.signed_url.split('agent_id=')[1]?.split('&')[0] || 'your-agent-id'
+        const conversationId = await conversation.startSession({
+          signedUrl: data.signed_url
         });
       }
     } catch (error) {
       toast({
         title: "Voice Error",
-        description: "Failed to start voice conversation. Please check your microphone permissions and API key.",
+        description: "Failed to start voice conversation. Please check your microphone permissions.",
         variant: "destructive"
       });
     }
   };
 
-  const handleApiKeySubmit = () => {
-    if (apiKey.trim()) {
-      setShowApiKeyInput(false);
-      toast({
-        title: "API Key Saved",
-        description: "You can now use voice features",
-      });
-    }
-  };
 
   return (
     <>
@@ -220,28 +204,6 @@ const ChatWidget = () => {
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* API Key Input */}
-              {showApiKeyInput && (
-                <div className="p-4 border-t bg-gray-50">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">
-                      ElevenLabs API Key (for voice features)
-                    </label>
-                    <div className="flex space-x-2">
-                      <input
-                        type="password"
-                        value={apiKey}
-                        onChange={(e) => setApiKey(e.target.value)}
-                        placeholder="Enter your ElevenLabs API key"
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm"
-                      />
-                      <Button size="sm" onClick={handleApiKeySubmit}>
-                        Save
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              )}
 
               {/* Input Area */}
               <div className="p-4 border-t">
