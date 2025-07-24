@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import DOMPurify from 'dompurify';
 
 interface PressArticleProps {
   date: string;
@@ -66,7 +67,7 @@ const PressArticle = ({ date, title, author, content, imageUrl }: PressArticlePr
           <div className="prose prose-lg max-w-none">
             <div 
               className="text-foreground leading-relaxed space-y-6"
-              dangerouslySetInnerHTML={{ __html: content }}
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
             />
           </div>
 
