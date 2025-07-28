@@ -6,18 +6,20 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { X, MessageCircle, Mic, MicOff, Phone, PhoneOff, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import LanguageSelector from "./LanguageSelector";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean; timestamp: Date }>>([
     {
-      text: "Hello! I'm ODIA AI Assistant, Nigeria's first voice AI infrastructure. I can help you with voice agents, WhatsApp automation, emergency response solutions, and more. Try voice mode to experience our real-time voice AI!",
+      text: "Hello! I'm ODIA.DEV, your Nigerian Voice AI Assistant. I speak Nigerian English, Yoruba, Hausa, and Igbo! Try voice mode to experience natural conversation with Nigerian cultural intelligence.",
       isUser: false,
       timestamp: new Date()
     }
   ]);
   const [isVoiceMode, setIsVoiceMode] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('nigerian_english');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -75,24 +77,46 @@ const ChatWidget = () => {
     setMessages(prev => [...prev, userMessage]);
     setMessage('');
 
-    // Simulate AI response for text chat
-    setTimeout(() => {
+    // Simulate AI response for text chat with TTS
+    setTimeout(async () => {
       const responses = [
-        "Thank you for your interest! Our voice AI agents (Lexi, ODIA, MISS, Atlas, and Miss Legal) can transform your business operations. Would you like to schedule a demo with CEO Austyn Eguale?",
-        "ODIA AI specializes in voice-powered solutions for Nigerian businesses. Our agents handle customer service, sales, healthcare, emergency response, and legal assistance 24/7 with natural Nigerian accents.",
-        "We offer multilingual support (English, Pidgin, Hausa, Yoruba, Igbo) and can integrate with your existing systems. What specific use case are you interested in exploring?",
-        "Our voice AI infrastructure is already helping businesses across Nigeria. We're partnered with Mudiame University, Cross AI International, and Intech Wealth. Let me connect you with our team for a personalized consultation.",
-        "Cross AI Protect provides emergency response coordination, while our WhatsApp automation handles business communications. Which solution interests you most?",
-        "As Nigeria's first voice AI infrastructure company, we understand local business contexts and cultural nuances. Try our voice mode to experience the difference!"
+        `Thank you for your interest! Our voice AI agents can transform your business operations in ${selectedLanguage.replace('_', ' ')}. Would you like to schedule a demo with CEO Austyn Eguale?`,
+        `ODIA.DEV specializes in voice-powered solutions for Nigerian businesses. Our agents handle customer service 24/7 with natural ${selectedLanguage.replace('_', ' ')} accents.`,
+        `We offer multilingual support and can integrate with your existing systems. What specific use case are you interested in exploring in ${selectedLanguage.replace('_', ' ')}?`,
+        `Our voice AI infrastructure is already helping businesses across Nigeria. We understand local business contexts and cultural nuances. Try our voice mode!`,
+        `Cross AI Protect provides emergency response coordination, while our WhatsApp automation handles business communications in your preferred language.`,
+        `As Nigeria's first voice AI infrastructure company, we understand local contexts. Experience the difference with ${selectedLanguage.replace('_', ' ')} voice AI!`
       ];
       
       const randomResponse = responses[Math.floor(Math.random() * responses.length)];
       
-      setMessages(prev => [...prev, {
+      const aiMessage = {
         text: randomResponse,
         isUser: false,
         timestamp: new Date()
-      }]);
+      };
+      
+      setMessages(prev => [...prev, aiMessage]);
+      
+      // Generate TTS audio if not in voice mode
+      if (conversation.status !== 'connected') {
+        try {
+          const { data, error } = await supabase.functions.invoke('nigerian-tts', {
+            body: { 
+              text: randomResponse,
+              language: selectedLanguage
+            }
+          });
+          
+          if (!error && data?.audioContent) {
+            // Play the generated audio
+            const audio = new Audio(`data:audio/mp3;base64,${data.audioContent}`);
+            await audio.play();
+          }
+        } catch (error) {
+          console.log('TTS not available:', error);
+        }
+      }
     }, 1000);
   };
 
@@ -178,6 +202,15 @@ const ChatWidget = () => {
             </CardHeader>
 
             <CardContent className="flex-1 flex flex-col p-0">
+              {/* Language Selector */}
+              <div className="p-4 pb-0">
+                <LanguageSelector 
+                  selectedLanguage={selectedLanguage}
+                  onLanguageChange={setSelectedLanguage}
+                  isVoiceMode={conversation.status === 'connected'}
+                />
+              </div>
+              
               {/* Messages */}
               <div className="flex-1 overflow-y-auto p-4 space-y-3">
                 {messages.map((msg, index) => (

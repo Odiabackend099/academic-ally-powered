@@ -31,24 +31,24 @@ const HeroSection = () => {
           
           {/* Main Headline - Mobile Optimized */}
           <h1 className="text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-wide leading-tight mb-6">
-            NIGERIA'S FIRST
+            WELCOME TO ODIA.DEV
             <br />
-            <span className="block text-gold font-medium">VOICE AI INFRASTRUCTURE</span>
+            <span className="block text-gold font-medium">NIGERIA'S VOICE AI PLATFORM</span>
           </h1>
           
           {/* Clear Value Proposition */}
           <p className="text-white/90 text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto mb-8 leading-relaxed">
-            Transform your business with university-backed AI that speaks your language
+            Talk in Nigerian English, Yoruba, Hausa, Igbo accents—just type or speak with our AI agent ODIA.DEV
           </p>
           
           {/* Primary CTAs - Mobile Optimized */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="w-full sm:w-auto bg-gold hover:bg-gold/90 text-navy font-semibold py-4 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              Start Free Demo
-            </button>
+             <button 
+               onClick={() => scrollToSection('contact')}
+               className="w-full sm:w-auto bg-gold hover:bg-gold/90 text-navy font-semibold py-4 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+             >
+               Start Chat in Nigerian English
+             </button>
             <a 
               href="https://wa.me/+2348123456789?text=Hello%20ODIA%20AI!%20I'm%20interested%20in%20your%20voice%20AI%20solutions%20for%20my%20business.%20Please%20tell%20me%20more."
               target="_blank"
