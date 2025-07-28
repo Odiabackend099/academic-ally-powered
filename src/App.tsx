@@ -6,6 +6,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import OfflineIndicator from "@/components/OfflineIndicator";
 import Index from "./pages/Index";
+import AISolutions from "./pages/AISolutions";
+import VoiceAgents from "./pages/VoiceAgents";
+import OurStory from "./pages/OurStory";
+import Resources from "./pages/Resources";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import CookiePolicy from "./pages/CookiePolicy";
+import Security from "./pages/Security";
 import CEOVision from "./pages/CEOVision";
 import LeadershipJourney from "./pages/LeadershipJourney";
 import MudiamePartnership from "./pages/partnerships/Mudiame";
@@ -26,6 +34,14 @@ const App = () => (
         <OfflineIndicator />
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/ai-solutions" element={<AISolutions />} />
+          <Route path="/voice-agents" element={<VoiceAgents />} />
+          <Route path="/our-story" element={<OurStory />} />
+          <Route path="/resources" element={<Resources />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/cookies" element={<CookiePolicy />} />
+          <Route path="/security" element={<Security />} />
           <Route path="/ceo-vision" element={<CEOVision />} />
           <Route path="/leadership-journey" element={<LeadershipJourney />} />
           <Route path="/partnerships/mudiame" element={<MudiamePartnership />} />
