@@ -1,5 +1,5 @@
 
-import heroMountains from "@/assets/hero-mountains.jpg";
+import heroAiBackground from "@/assets/hero-ai-background.jpg";
 
 const HeroSection = () => {
   const scrollToSection = (sectionId: string) => {
@@ -14,7 +14,7 @@ const HeroSection = () => {
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(/lovable-uploads/01faf042-717a-47b7-98cc-6b68dc00bf59.png)` }}
+        style={{ backgroundImage: `url(${heroAiBackground})` }}
       />
       
       {/* Enhanced Dark Overlay for better text readability */}
