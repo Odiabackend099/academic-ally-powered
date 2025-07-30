@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import LanguageSelector from "./LanguageSelector";
 import { sanitizeInput, checkRateLimit } from "@/utils/validation";
+import nigerianFemaleAvatar from "@/assets/nigerian-female-avatar.jpg";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -193,9 +194,9 @@ const ChatWidget = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <img 
-                    src="/lovable-uploads/0464e30d-bd4b-47c1-8246-8503bd90c3d1.png" 
-                    alt="ODIA AI" 
-                    className="w-8 h-8"
+                    src={nigerianFemaleAvatar} 
+                    alt="ODIA AI Assistant" 
+                    className="w-8 h-8 rounded-full object-cover"
                   />
                   <div>
                     <h3 className="font-semibold">ODIA AI Assistant</h3>

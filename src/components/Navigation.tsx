@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
+import nigerianFemaleAvatar from "@/assets/nigerian-female-avatar.jpg";
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -66,9 +67,9 @@ const Navigation = () => {
           <div className="flex items-center space-x-3 cursor-pointer"
                onClick={() => navigate('/')}>
             <img 
-              src="/lovable-uploads/0464e30d-bd4b-47c1-8246-8503bd90c3d1.png" 
+              src={nigerianFemaleAvatar} 
               alt="ODIA AI Logo" 
-              className="w-10 h-10"
+              className="w-10 h-10 rounded-full object-cover"
             />
             <div className="text-white text-2xl font-bold tracking-wider">
               ODIA AI

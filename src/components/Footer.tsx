@@ -1,6 +1,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, MessageCircle } from "lucide-react";
+import nigerianFemaleAvatar from "@/assets/nigerian-female-avatar.jpg";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -97,9 +98,9 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
               <img 
-                src="/lovable-uploads/0464e30d-bd4b-47c1-8246-8503bd90c3d1.png" 
+                src={nigerianFemaleAvatar} 
                 alt="ODIA AI Logo" 
-                className="w-10 h-10"
+                className="w-10 h-10 rounded-full object-cover"
               />
               <div className="text-2xl font-bold tracking-wider">
                 ODIA AI

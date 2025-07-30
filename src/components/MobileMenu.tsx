@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useNavigate } from "react-router-dom";
 import { Menu, X, Home, Bot, Mic, BookOpen, Users, Globe, FileText, MessageCircle } from "lucide-react";
+import nigerianFemaleAvatar from "@/assets/nigerian-female-avatar.jpg";
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,9 +63,9 @@ const MobileMenu = () => {
         <SheetHeader className="mb-8">
           <SheetTitle className="flex items-center space-x-3 text-white">
             <img 
-              src="/lovable-uploads/0464e30d-bd4b-47c1-8246-8503bd90c3d1.png" 
+              src={nigerianFemaleAvatar} 
               alt="ODIA AI Logo" 
-              className="w-8 h-8"
+              className="w-8 h-8 rounded-full object-cover"
             />
             <span className="text-xl font-bold">ODIA AI</span>
           </SheetTitle>
