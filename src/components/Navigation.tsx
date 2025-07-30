@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
-import nigerianFemaleAvatar from "@/assets/nigerian-female-avatar.jpg";
+// Logo will be imported directly from public folder
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -67,9 +67,9 @@ const Navigation = () => {
           <div className="flex items-center space-x-3 cursor-pointer"
                onClick={() => navigate('/')}>
             <img 
-              src={nigerianFemaleAvatar} 
+              src="/lovable-uploads/5a53e568-9d4c-4430-97bf-05d6dcfc30e8.png" 
               alt="ODIA AI Logo" 
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-10 h-10 object-contain"
             />
             <div className="text-white text-2xl font-bold tracking-wider">
               ODIA AI
