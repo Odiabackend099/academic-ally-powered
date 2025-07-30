@@ -2,10 +2,8 @@
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import WhatWeDoSection from "@/components/WhatWeDoSection";
-import CEOSection from "@/components/CEOSection";
 import LeadershipSection from "@/components/LeadershipSection";
 import IntellectualExcellenceSection from "@/components/IntellectualExcellenceSection";
-import TeamSection from "@/components/TeamSection";
 import PartnershipsSection from "@/components/PartnershipsSection";
 import PressSection from "@/components/PressSection";
 import PricingSection from "@/components/PricingSection";
@@ -19,10 +17,8 @@ const Index = () => {
       <Navigation />
       <HeroSection />
       <WhatWeDoSection />
-      <CEOSection />
       <LeadershipSection />
       <IntellectualExcellenceSection />
-      <TeamSection />
       <PartnershipsSection />
       <PressSection />
       <PricingSection />
