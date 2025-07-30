@@ -38,7 +38,7 @@ const LeadershipSection = () => {
     {
       name: "Setale Eguale",
       title: "Director, International Relations (NBSC Liaison)",
-      image: "/lovable-uploads/c9cf1bac-6327-45ef-bdeb-4c7fb6a78a29.png",
+      image: "/lovable-uploads/3f9cbbe1-263a-4b57-adfd-e67ac89f5db1.png",
       bio: "Global voice ambassador connecting ODIA AI with international standards and education systems through NBSC and strategic diplomacy.",
       linkedin: "https://linkedin.com/in/setale-eguale"
     },
