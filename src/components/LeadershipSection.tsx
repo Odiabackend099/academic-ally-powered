@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import gloryGoldAvatar from "@/assets/glorygold-avatar.jpg";
+import nnamdiAvatar from "@/assets/nnamdi-avatar.jpg";
 
 const LeadershipSection = () => {
   const directors = [
@@ -29,7 +31,7 @@ const LeadershipSection = () => {
     {
       name: "GloryGold Eseose",
       title: "Executive Secretary",
-      image: "/lovable-uploads/5c18d79c-5716-4228-991c-382e5765b4b8.png",
+      image: gloryGoldAvatar,
       bio: "Operational excellence and legal documentation head, ensuring smooth coordination across CAC, research, and internal initiatives.",
       linkedin: "https://linkedin.com/in/glorygold"
     },
@@ -43,7 +45,7 @@ const LeadershipSection = () => {
     {
       name: "Nnamdi Okeke",
       title: "Software Developer, AI Systems",
-      image: "/lovable-uploads/d2a9bd74-7717-401d-96c4-cd185b6bca6d.png",
+      image: nnamdiAvatar,
       bio: "Backend engineer and full-stack builder powering ODIA AI's agent infrastructure, including TTS, Claude integrations, and Supabase flows.",
       linkedin: "https://linkedin.com/in/nnamdi-okeke"
     }
@@ -72,12 +74,16 @@ const LeadershipSection = () => {
           <div className="grid md:grid-cols-3 gap-12">
             {directors.map((director) => (
               <div key={director.name} className="text-center group">
-                <div className="relative mb-6 overflow-hidden rounded-lg">
+                <div className="relative mb-6 overflow-hidden rounded-lg shadow-lg">
                   <img 
                     src={director.image} 
                     alt={`${director.name} - ${director.title}`}
-                    className="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-80 object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
                   />
+                  {/* Overlay for better mobile visibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
                 
                 <div className="space-y-4">
@@ -113,12 +119,16 @@ const LeadershipSection = () => {
           <div className="grid md:grid-cols-3 gap-12">
             {coreTeam.map((member) => (
               <div key={member.name} className="text-center group">
-                <div className="relative mb-6 overflow-hidden rounded-lg">
+                <div className="relative mb-6 overflow-hidden rounded-lg shadow-lg">
                   <img 
                     src={member.image} 
                     alt={`${member.name} - ${member.title}`}
-                    className="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-80 object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
                   />
+                  {/* Overlay for better mobile visibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
                 
                 <div className="space-y-4">

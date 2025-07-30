@@ -1,5 +1,6 @@
 
 import heroAiBackground from "@/assets/hero-ai-background.jpg";
+import AnimatedWaveform from "@/components/AnimatedWaveform";
 
 const HeroSection = () => {
   const scrollToSection = (sectionId: string) => {
@@ -36,10 +37,28 @@ const HeroSection = () => {
             <span className="block text-gold font-medium">NIGERIA'S VOICE AI PLATFORM</span>
           </h1>
           
-          {/* Clear Value Proposition */}
-          <p className="text-white/90 text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto mb-8 leading-relaxed">
-            Talk in Nigerian English, Yoruba, Hausa, Igbo accents—just type or speak with our AI agent ODIA.DEV
-          </p>
+          {/* Clear Value Proposition with Animated Waveform */}
+          <div className="relative mb-8">
+            <p className="text-white/90 text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto mb-4 leading-relaxed">
+              Talk in Nigerian English, Yoruba, Hausa, Igbo accents—just type or speak with our AI agent ODIA.DEV
+            </p>
+            
+            {/* Centered Animated Waveform */}
+            <div className="flex justify-center items-center mb-4">
+              <div className="relative">
+                <AnimatedWaveform isAnimating={true} className="w-32 h-8" />
+                
+                {/* GLO lights - Centered */}
+                <div className="absolute -top-2 -bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center items-center gap-2">
+                  <div className="w-2 h-2 bg-gold rounded-full glo-light"></div>
+                  <div className="w-3 h-3 bg-gold rounded-full glo-light" style={{ animationDelay: '0.5s' }}></div>
+                  <div className="w-2 h-2 bg-gold rounded-full glo-light" style={{ animationDelay: '1s' }}></div>
+                </div>
+              </div>
+            </div>
+            
+            <p className="text-white/70 text-sm">🎤 Switch to voice mode to hear natural pronunciation</p>
+          </div>
           
           {/* Primary CTAs - Mobile Optimized */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
