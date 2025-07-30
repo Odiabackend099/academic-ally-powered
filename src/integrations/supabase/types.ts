@@ -71,14 +71,14 @@ export type Database = {
             foreignKeyName: "clan_members_clan_id_fkey"
             columns: ["clan_id"]
             isOneToOne: false
-            referencedRelation: "clans"
+            referencedRelation: "clan_leaderboard"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "clan_members_clan_id_fkey"
             columns: ["clan_id"]
             isOneToOne: false
-            referencedRelation: "real_clan_leaderboard"
+            referencedRelation: "clans"
             referencedColumns: ["id"]
           },
         ]
@@ -113,14 +113,14 @@ export type Database = {
             foreignKeyName: "clan_mission_progress_clan_id_fkey"
             columns: ["clan_id"]
             isOneToOne: false
-            referencedRelation: "clans"
+            referencedRelation: "clan_leaderboard"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "clan_mission_progress_clan_id_fkey"
             columns: ["clan_id"]
             isOneToOne: false
-            referencedRelation: "real_clan_leaderboard"
+            referencedRelation: "clans"
             referencedColumns: ["id"]
           },
           {
@@ -305,7 +305,7 @@ export type Database = {
       }
     }
     Views: {
-      real_clan_leaderboard: {
+      clan_leaderboard: {
         Row: {
           created_at: string | null
           description: string | null
@@ -321,7 +321,7 @@ export type Database = {
         }
         Relationships: []
       }
-      real_user_leaderboard: {
+      user_leaderboard: {
         Row: {
           earnings: number | null
           first_name: string | null
@@ -340,6 +340,10 @@ export type Database = {
       }
       user_owns_profile: {
         Args: { profile_telegram_id: number }
+        Returns: boolean
+      }
+      validate_input_safety: {
+        Args: { input_text: string }
         Returns: boolean
       }
     }
