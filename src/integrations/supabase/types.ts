@@ -168,6 +168,7 @@ export type Database = {
       clans: {
         Row: {
           created_at: string
+          creator_id: string | null
           description: string | null
           id: string
           image: string | null
@@ -181,6 +182,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          creator_id?: string | null
           description?: string | null
           id?: string
           image?: string | null
@@ -194,6 +196,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          creator_id?: string | null
           description?: string | null
           id?: string
           image?: string | null
@@ -273,6 +276,39 @@ export type Database = {
         }
         Relationships: []
       }
+      security_audit_log: {
+        Row: {
+          action: string
+          created_at: string
+          details: Json | null
+          id: string
+          ip_address: unknown | null
+          resource: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          ip_address?: unknown | null
+          resource?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          ip_address?: unknown | null
+          resource?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       tasks: {
         Row: {
           created_at: string
@@ -334,9 +370,28 @@ export type Database = {
       }
     }
     Functions: {
+      check_rate_limit: {
+        Args: {
+          user_identifier: string
+          action_type: string
+          max_attempts?: number
+          window_minutes?: number
+        }
+        Returns: boolean
+      }
       get_current_telegram_id: {
         Args: Record<PropertyKey, never>
         Returns: number
+      }
+      log_security_event: {
+        Args: {
+          action_name: string
+          resource_name?: string
+          event_details?: Json
+          client_ip?: unknown
+          client_user_agent?: string
+        }
+        Returns: undefined
       }
       user_owns_profile: {
         Args: { profile_telegram_id: number }
