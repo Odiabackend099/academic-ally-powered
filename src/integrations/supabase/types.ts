@@ -393,6 +393,15 @@ export type Database = {
         }
         Returns: undefined
       }
+      submit_contact_form: {
+        Args: {
+          form_name: string
+          form_email: string
+          form_message: string
+          user_ip?: unknown
+        }
+        Returns: Json
+      }
       user_owns_profile: {
         Args: { profile_telegram_id: number }
         Returns: boolean
