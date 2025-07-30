@@ -3,8 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
+import { validateEmail, validateName, sanitizeInput, checkRateLimit } from "@/utils/validation";
+import { useToast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,9 +18,51 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Rate limiting check
+    if (!checkRateLimit('contact_form', 3)) {
+      toast({
+        title: "Rate Limited",
+        description: "Please wait before submitting another form.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate inputs
+    if (!validateName(formData.name)) {
+      toast({
+        title: "Invalid Name",
+        description: "Please enter a valid name (2-100 characters).",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Sanitize form data
+    const sanitizedData = {
+      name: sanitizeInput(formData.name),
+      email: sanitizeInput(formData.email),
+      company: sanitizeInput(formData.company),
+      message: sanitizeInput(formData.message),
+      interest: formData.interest
+    };
+
     // Send form data to backend
-    console.log("Contact form submitted:", formData);
-    alert("Thank you for your interest! Our team will contact you within 24 hours.");
+    console.log("Contact form submitted:", sanitizedData);
+    toast({
+      title: "Form Submitted",
+      description: "Thank you for your interest! Our team will contact you within 24 hours.",
+    });
     setFormData({ name: "", email: "", company: "", message: "", interest: "voice-ai" });
   };
 

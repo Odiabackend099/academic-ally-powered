@@ -7,6 +7,7 @@ import { X, MessageCircle, Mic, MicOff, Phone, PhoneOff, Send } from "lucide-rea
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import LanguageSelector from "./LanguageSelector";
+import { sanitizeInput, checkRateLimit } from "@/utils/validation";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,8 +69,21 @@ const ChatWidget = () => {
   const handleSendMessage = async () => {
     if (!message.trim()) return;
 
+    // Rate limiting check
+    if (!checkRateLimit('chat_message', 10)) {
+      toast({
+        title: "Rate Limited",
+        description: "Please wait before sending another message.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Sanitize input
+    const sanitizedMessage = sanitizeInput(message);
+    
     const userMessage = {
-      text: message,
+      text: sanitizedMessage,
       isUser: true,
       timestamp: new Date()
     };

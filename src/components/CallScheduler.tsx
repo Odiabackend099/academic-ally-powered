@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar, Clock, User, Building, Phone, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { validateEmail, validateName, validatePhone, sanitizeInput, checkRateLimit } from "@/utils/validation";
 
 interface CallSchedulerProps {
   isOpen: boolean;
@@ -28,7 +29,59 @@ const CallScheduler = ({ isOpen, onClose }: CallSchedulerProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Rate limiting check
+    if (!checkRateLimit('schedule_call', 2)) {
+      toast({
+        title: "Rate Limited",
+        description: "Please wait before scheduling another call.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate inputs
+    if (!validateName(formData.name)) {
+      toast({
+        title: "Invalid Name",
+        description: "Please enter a valid name (2-100 characters).",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!validatePhone(formData.phone)) {
+      toast({
+        title: "Invalid Phone",
+        description: "Please enter a valid phone number.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Sanitize form data
+    const sanitizedData = {
+      name: sanitizeInput(formData.name),
+      email: sanitizeInput(formData.email),
+      company: sanitizeInput(formData.company),
+      phone: sanitizeInput(formData.phone),
+      preferredDate: formData.preferredDate,
+      preferredTime: formData.preferredTime,
+      businessType: formData.businessType,
+      message: sanitizeInput(formData.message)
+    };
+
     // In production, integrate with Calendly or similar scheduling API
+    console.log("Call scheduled:", sanitizedData);
     toast({
       title: "Meeting Request Submitted",
       description: "Our team will contact you within 24 hours to confirm your meeting with CEO Austyn Eguale.",
