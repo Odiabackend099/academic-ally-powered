@@ -70,7 +70,6 @@ const LeadershipSection = () => {
 
         {/* Directors Section */}
         <div className="mb-16">
-          <h3 className="text-2xl font-semibold text-center text-foreground mb-8">Board of Directors</h3>
           <div className="grid md:grid-cols-3 gap-12">
             {directors.map((director) => (
               <div key={director.name} className="text-center group">
