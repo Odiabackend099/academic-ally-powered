@@ -1,11 +1,15 @@
 
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { LogOut, User } from "lucide-react";
 import MobileMenu from "./MobileMenu";
 // Logo will be imported directly from public folder
 
 const Navigation = () => {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
   
   const navItems = [
     { name: "Home", href: "#home", type: "scroll" },
@@ -88,13 +92,43 @@ const Navigation = () => {
               </button>
             ))}
             <div className="h-6 w-px bg-white/30 mx-4" />
-            <Button 
-              variant="ghost" 
-              className="text-white hover:text-gold hover:bg-transparent"
-              onClick={handleDemoLogin}
-            >
-              Start Voice Chat
-            </Button>
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 text-white">
+                  <User className="w-4 h-4" />
+                  <span className="text-sm">
+                    {user.email}
+                  </span>
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-white text-white hover:bg-white hover:text-primary"
+                  onClick={signOut}
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Button 
+                  variant="ghost" 
+                  className="text-white hover:text-gold hover:bg-transparent"
+                  onClick={handleDemoLogin}
+                >
+                  Start Voice Chat
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-white text-white hover:bg-white hover:text-primary"
+                  onClick={() => navigate('/auth')}
+                >
+                  Sign In
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu */}

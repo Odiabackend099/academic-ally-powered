@@ -5,7 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import OfflineIndicator from "@/components/OfflineIndicator";
+import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
+import Auth from "./pages/Auth";
 import AISolutions from "./pages/AISolutions";
 import VoiceAgents from "./pages/VoiceAgents";
 import OurStory from "./pages/OurStory";
@@ -30,33 +32,36 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <BrowserRouter>
-        <OfflineIndicator />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/ai-solutions" element={<AISolutions />} />
-          <Route path="/voice-agents" element={<VoiceAgents />} />
-          <Route path="/our-story" element={<OurStory />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/cookies" element={<CookiePolicy />} />
-          <Route path="/security" element={<Security />} />
-          <Route path="/ceo-vision" element={<CEOVision />} />
-          <Route path="/leadership-journey" element={<LeadershipJourney />} />
-          <Route path="/partnerships/mudiame" element={<MudiamePartnership />} />
-          <Route path="/partnerships/cross-ai" element={<CrossAIPartnership />} />
-          <Route path="/partnerships/intech-wealth" element={<IntechWealthPartnership />} />
-          <Route path="/press" element={<PressIndex />} />
-          <Route path="/press/mudiame-partnership" element={<PressMudiamePartnership />} />
-          <Route path="/press/company-launch" element={<CompanyLaunch />} />
-          <Route path="/press/global-partnerships" element={<GlobalPartnerships />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <PWAInstallPrompt />
-      </BrowserRouter>
-      <Toaster />
-      <Sonner />
+      <AuthProvider>
+        <BrowserRouter>
+          <OfflineIndicator />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/ai-solutions" element={<AISolutions />} />
+            <Route path="/voice-agents" element={<VoiceAgents />} />
+            <Route path="/our-story" element={<OurStory />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/cookies" element={<CookiePolicy />} />
+            <Route path="/security" element={<Security />} />
+            <Route path="/ceo-vision" element={<CEOVision />} />
+            <Route path="/leadership-journey" element={<LeadershipJourney />} />
+            <Route path="/partnerships/mudiame" element={<MudiamePartnership />} />
+            <Route path="/partnerships/cross-ai" element={<CrossAIPartnership />} />
+            <Route path="/partnerships/intech-wealth" element={<IntechWealthPartnership />} />
+            <Route path="/press" element={<PressIndex />} />
+            <Route path="/press/mudiame-partnership" element={<PressMudiamePartnership />} />
+            <Route path="/press/company-launch" element={<CompanyLaunch />} />
+            <Route path="/press/global-partnerships" element={<GlobalPartnerships />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <PWAInstallPrompt />
+        </BrowserRouter>
+        <Toaster />
+        <Sonner />
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
