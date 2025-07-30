@@ -1,8 +1,11 @@
 
 import heroAiBackground from "@/assets/hero-ai-background.jpg";
 import AnimatedWaveform from "@/components/AnimatedWaveform";
+import { useParallaxEffect } from "@/hooks/useScrollAnimation";
 
 const HeroSection = () => {
+  const offsetY = useParallaxEffect();
+  
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -12,10 +15,13 @@ const HeroSection = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image with Parallax */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroAiBackground})` }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
+        style={{ 
+          backgroundImage: `url(${heroAiBackground})`,
+          transform: `translateY(${offsetY * 0.5}px)`
+        }}
       />
       
       {/* Enhanced Dark Overlay for better text readability */}
@@ -64,7 +70,7 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
              <button 
                onClick={() => scrollToSection('contact')}
-               className="w-full sm:w-auto bg-gold hover:bg-gold/90 text-navy font-semibold py-4 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+               className="w-full sm:w-auto bg-gold hover:bg-gold/90 text-navy font-semibold py-4 px-8 rounded-lg text-lg transition-all duration-500 shadow-lg hover:shadow-2xl transform hover:scale-110 hover:-translate-y-1 animate-glow-pulse"
              >
                Start Chat in Nigerian English
              </button>
@@ -72,7 +78,7 @@ const HeroSection = () => {
               href="https://wa.me/+2348123456789?text=Hello%20ODIA%20AI!%20I'm%20interested%20in%20your%20voice%20AI%20solutions%20for%20my%20business.%20Please%20tell%20me%20more."
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white font-semibold py-4 px-8 rounded-lg text-lg border border-white/30 backdrop-blur-sm transition-all duration-300"
+              className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white font-semibold py-4 px-8 rounded-lg text-lg border border-white/30 backdrop-blur-sm transition-all duration-500 hover:border-white/50 transform hover:scale-105 hover:-translate-y-1"
             >
               WhatsApp Demo
             </a>

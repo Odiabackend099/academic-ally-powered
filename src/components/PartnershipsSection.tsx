@@ -1,8 +1,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const PartnershipsSection = () => {
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { elementRef: cardsRef, isVisible: cardsVisible } = useScrollAnimation({ threshold: 0.1 });
+
   const partnerships = [
     {
       name: "Mudiame International University",
@@ -51,9 +55,14 @@ const PartnershipsSection = () => {
   };
 
   return (
-    <section id="partnerships" className="py-20 bg-background">
+    <section id="partnerships" className="py-20 bg-background overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={`text-center mb-16 transition-all duration-1000 ${
+            titleVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'
+          }`}
+        >
           <p className="text-muted-foreground text-sm font-medium tracking-wide uppercase mb-4">
             Strategic Partnerships
           </p>
@@ -68,13 +77,19 @@ const PartnershipsSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div 
+          ref={cardsRef}
+          className={`grid md:grid-cols-3 gap-8 mb-12 transition-all duration-1000 delay-200 ${
+            cardsVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'
+          }`}
+        >
           {partnerships.map((partnership, index) => (
             <Card 
               key={index} 
-              className={`group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 ${
-                partnership.isPrimary ? 'ring-2 ring-gold/30 bg-gradient-to-br from-gold/5 to-transparent' : ''
-              }`}
+              className={`group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 ${
+                partnership.isPrimary ? 'ring-2 ring-gold/30 bg-gradient-to-br from-gold/5 to-transparent animate-glow-pulse' : ''
+              } ${cardsVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'}`}
+              style={{ animationDelay: `${index * 200 + 400}ms` }}
             >
               <CardContent className="p-8">
                 <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${partnership.gradient} flex items-center justify-center text-2xl mb-6 mx-auto`}>
@@ -106,10 +121,10 @@ const PartnershipsSection = () => {
 
                 <Button 
                   variant="outline" 
-                  className="w-full border-gold text-gold hover:bg-gold hover:text-gold-foreground"
+                  className="w-full border-gold text-gold hover:bg-gold hover:text-gold-foreground transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-lg group/btn"
                   onClick={() => handleLearnMore(partnership.name)}
                 >
-                  Learn More
+                  <span className="group-hover/btn:animate-pulse">Learn More</span>
                 </Button>
               </CardContent>
             </Card>

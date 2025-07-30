@@ -2,8 +2,12 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Zap, Crown, Building } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const PricingSection = () => {
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { elementRef: cardsRef, isVisible: cardsVisible } = useScrollAnimation({ threshold: 0.1 });
+
   const plans = [
     {
       name: "Starter",
@@ -61,10 +65,15 @@ const PricingSection = () => {
   ];
 
   return (
-    <section id="pricing" className="py-20 bg-gray-50">
+    <section id="pricing" className="py-20 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={`text-center mb-16 transition-all duration-1000 ${
+            titleVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'
+          }`}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-navy mb-4">
             Choose Your Voice AI Plan
           </h2>
@@ -74,15 +83,21 @@ const PricingSection = () => {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div 
+          ref={cardsRef}
+          className={`grid md:grid-cols-3 gap-8 max-w-6xl mx-auto transition-all duration-1000 delay-200 ${
+            cardsVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'
+          }`}
+        >
           {plans.map((plan, index) => (
             <Card 
               key={index} 
-              className={`relative transition-all duration-300 hover:shadow-xl ${
+              className={`relative transition-all duration-500 hover:shadow-2xl hover:scale-105 hover:-translate-y-2 ${
                 plan.popular 
-                  ? 'border-2 border-gold shadow-lg scale-105' 
+                  ? 'border-2 border-gold shadow-lg scale-105 animate-glow-pulse' 
                   : 'border border-gray-200 hover:border-navy/20'
-              }`}
+              } ${cardsVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'}`}
+              style={{ animationDelay: `${index * 200 + 400}ms` }}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -117,7 +132,7 @@ const PricingSection = () => {
                 </ul>
 
                 <Button 
-                  className={`w-full py-3 ${
+                  className={`w-full py-3 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-lg group/btn ${
                     plan.popular 
                       ? 'bg-gold hover:bg-gold/90 text-navy' 
                       : 'bg-navy hover:bg-navy-light text-white'
@@ -131,7 +146,7 @@ const PricingSection = () => {
                     }
                   }}
                 >
-                  {plan.buttonText}
+                  <span className="group-hover/btn:animate-pulse">{plan.buttonText}</span>
                 </Button>
 
                 {plan.name !== 'Enterprise' && (

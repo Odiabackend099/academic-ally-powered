@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
 import gloryGoldAvatar from "@/assets/glorygold-avatar.jpg";
 import nnamdiAvatar from "@/assets/nnamdi-avatar.jpg";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const LeadershipSection = () => {
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { elementRef: directorsRef, isVisible: directorsVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { elementRef: teamRef, isVisible: teamVisible } = useScrollAnimation({ threshold: 0.1 });
+
   const directors = [
     {
       name: "Austyn Eguale",
@@ -51,9 +56,14 @@ const LeadershipSection = () => {
     }
   ];
   return (
-    <section id="leadership" className="py-20 bg-white">
+    <section id="leadership" className="py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={`text-center mb-16 transition-all duration-1000 ${
+            titleVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'
+          }`}
+        >
           <p className="text-muted-foreground text-sm font-medium tracking-wide uppercase mb-4">
             Leadership Team
           </p>
@@ -69,20 +79,34 @@ const LeadershipSection = () => {
         </div>
 
         {/* Directors Section */}
-        <div className="mb-16">
+        <div 
+          ref={directorsRef}
+          className={`mb-16 transition-all duration-1000 delay-200 ${
+            directorsVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'
+          }`}
+        >
           <div className="grid md:grid-cols-3 gap-12">
-            {directors.map((director) => (
-              <div key={director.name} className="text-center group">
-                <div className="relative mb-6 overflow-hidden rounded-lg shadow-lg">
+            {directors.map((director, index) => (
+              <div 
+                key={director.name} 
+                className={`text-center group transition-all duration-700 ${
+                  directorsVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'
+                }`}
+                style={{ animationDelay: `${index * 200 + 400}ms` }}
+              >
+                <div className="relative mb-6 overflow-hidden rounded-lg shadow-lg group-hover:shadow-2xl transition-all duration-500">
                   <img 
                     src={director.image} 
                     alt={`${director.name} - ${director.title}`}
-                    className="w-full h-80 object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-80 object-cover object-center transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
                     loading="lazy"
                     decoding="async"
                   />
-                  {/* Overlay for better mobile visibility */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  {/* Enhanced overlay with golden glow */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-gold/10 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                  
+                  {/* Floating decoration */}
+                  <div className="absolute top-4 right-4 w-3 h-3 bg-gold rounded-full opacity-0 group-hover:opacity-80 transition-all duration-500 animate-float"></div>
                 </div>
                 
                 <div className="space-y-4">
@@ -101,10 +125,10 @@ const LeadershipSection = () => {
                   
                   <Button 
                     variant="outline" 
-                    className="border-gold text-gold hover:bg-gold hover:text-gold-foreground" 
+                    className="border-gold text-gold hover:bg-gold hover:text-gold-foreground transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-lg group/btn" 
                     onClick={() => window.open(director.linkedin, '_blank')}
                   >
-                    Connect on LinkedIn
+                    <span className="group-hover/btn:animate-pulse">Connect on LinkedIn</span>
                   </Button>
                 </div>
               </div>
@@ -113,11 +137,22 @@ const LeadershipSection = () => {
         </div>
 
         {/* Core Team Section */}
-        <div className="mb-16">
+        <div 
+          ref={teamRef}
+          className={`mb-16 transition-all duration-1000 delay-400 ${
+            teamVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'
+          }`}
+        >
           <h3 className="text-2xl font-semibold text-center text-foreground mb-8">Core Team</h3>
           <div className="grid md:grid-cols-3 gap-12">
-            {coreTeam.map((member) => (
-              <div key={member.name} className="text-center group">
+            {coreTeam.map((member, index) => (
+              <div 
+                key={member.name} 
+                className={`text-center group transition-all duration-700 ${
+                  teamVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-[60px]'
+                }`}
+                style={{ animationDelay: `${index * 200 + 600}ms` }}
+              >
                 <div className="relative mb-6 overflow-hidden rounded-lg shadow-lg">
                   <img 
                     src={member.image} 

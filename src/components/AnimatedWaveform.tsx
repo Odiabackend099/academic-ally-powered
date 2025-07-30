@@ -10,29 +10,35 @@ const AnimatedWaveform: React.FC<WaveformProps> = ({
   className = "" 
 }) => {
   return (
-    <div className={`flex items-center justify-center gap-1 ${className}`}>
+    <div className={`relative flex items-center justify-center gap-1 ${className}`}>
       {/* Waveform bars */}
       {Array.from({ length: 12 }, (_, i) => (
         <div
           key={i}
           className={`
-            bg-gradient-to-t from-gold/80 to-gold 
-            rounded-full transition-all duration-300
+            bg-gradient-to-t from-gold/80 via-gold to-gold/90
+            rounded-full transition-all duration-500
             ${isAnimating 
-              ? `animate-[wave_1.5s_ease-in-out_infinite_${i * 0.1}s]` 
+              ? 'animate-wave' 
               : 'opacity-50'
             }
           `}
           style={{
-            width: '3px',
-            height: `${20 + Math.sin(i * 0.5) * 15}px`,
-            animationDelay: `${i * 0.1}s`,
+            width: '4px',
+            height: `${20 + Math.sin(i * 0.8) * 18}px`,
+            animationDelay: `${i * 0.15}s`,
+            filter: 'drop-shadow(0 0 8px hsl(var(--gold) / 0.6))',
           }}
         />
       ))}
       
-      {/* Glowing effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/20 to-transparent rounded-full blur-sm"></div>
+      {/* Enhanced Glowing effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/30 to-transparent rounded-full blur-md animate-glow-pulse"></div>
+      
+      {/* Pulsing orb in center */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-2 h-2 bg-gold rounded-full animate-glow-pulse opacity-80"></div>
+      </div>
     </div>
   );
 };
