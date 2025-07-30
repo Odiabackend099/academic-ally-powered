@@ -14,14 +14,14 @@ const LeadershipSection = () => {
     {
       name: "Peter Ntaji",
       title: "Director, Government Partnerships",
-      image: "/lovable-uploads/c9cf1bac-6327-45ef-bdeb-4c7fb6a78a29.png",
+      image: "/lovable-uploads/e2248700-913d-4b5c-a244-137197541717.png",
       bio: "Leadership advisor and governance strategist focused on state-level adoption of ODIA emergency voice systems like Cross AI Protect.",
       linkedin: "https://linkedin.com/in/peter-ntaji"
     },
     {
       name: "Benjamin Nwoye",
       title: "Director, Commercial Strategy",
-      image: "/lovable-uploads/d2a9bd74-7717-401d-96c4-cd185b6bca6d.png",
+      image: "/lovable-uploads/32c56aae-875f-4bdd-ae52-57869edd734d.png",
       bio: "Strategic growth leader bridging automotive, tech, and enterprise adoption of ODIA voice automation. CEO of RS Autotech.",
       linkedin: "https://linkedin.com/in/benjamin-nwoye"
     }
