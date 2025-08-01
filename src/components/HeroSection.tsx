@@ -1,6 +1,7 @@
 
 import heroAiBackground from "@/assets/hero-ai-background.jpg";
 import AnimatedWaveform from "@/components/AnimatedWaveform";
+import Hero3DBackground from "@/components/Hero3DBackground";
 import { useParallaxEffect, useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const HeroSection = () => {
@@ -40,6 +41,9 @@ const HeroSection = () => {
           `
         }}
       />
+      
+      {/* 3D Background Layer */}
+      <Hero3DBackground className="opacity-60 mix-blend-screen" />
       
       {/* Animated particles overlay */}
       <div className="absolute inset-0 opacity-30">

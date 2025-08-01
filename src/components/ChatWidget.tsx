@@ -1,63 +1,33 @@
-
 import { useState, useRef, useEffect } from 'react';
-import { useConversation } from '@11labs/react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { X, MessageCircle, Mic, MicOff, Phone, PhoneOff, Send } from "lucide-react";
+import { X, MessageCircle, Send, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import LanguageSelector from "./LanguageSelector";
 import { sanitizeInput, checkRateLimit } from "@/utils/validation";
+import { useIsMobile } from "@/hooks/use-mobile";
 import nigerianFemaleAvatar from "@/assets/nigerian-female-avatar.jpg";
+
+interface Message {
+  text: string;
+  isUser: boolean;
+  timestamp: Date;
+}
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean; timestamp: Date }>>([
+  const [isLoading, setIsLoading] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
     {
-      text: "Hello! I'm ODIA.DEV, your Nigerian Voice AI Assistant. I speak Nigerian English, Yoruba, Hausa, and Igbo! Try voice mode to experience natural conversation with Nigerian cultural intelligence.",
+      text: "Hello! I'm ODIA AI, your Nigerian AI Assistant. How can I help you today?",
       isUser: false,
       timestamp: new Date()
     }
   ]);
-  const [isVoiceMode, setIsVoiceMode] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('nigerian_english');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-
-  const conversation = useConversation({
-    onConnect: () => {
-      toast({
-        title: "Voice Connected",
-        description: "You can now speak with ODIA AI",
-      });
-      setIsVoiceMode(true);
-    },
-    onDisconnect: () => {
-      toast({
-        title: "Voice Disconnected", 
-        description: "Voice conversation ended",
-      });
-      setIsVoiceMode(false);
-    },
-    onMessage: (message) => {
-      if (message.source === 'ai' && message.message) {
-        setMessages(prev => [...prev, {
-          text: message.message,
-          isUser: false,
-          timestamp: new Date()
-        }]);
-      }
-    },
-    onError: (error) => {
-      toast({
-        title: "Voice Error",
-        description: "Failed to connect voice AI. Please check your API key.",
-        variant: "destructive"
-      });
-      console.error('Voice conversation error:', error);
-    }
-  });
+  const isMobile = useIsMobile();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -68,7 +38,7 @@ const ChatWidget = () => {
   }, [messages]);
 
   const handleSendMessage = async () => {
-    if (!message.trim()) return;
+    if (!message.trim() || isLoading) return;
 
     // Rate limiting check
     if (!checkRateLimit('chat_message', 10)) {
@@ -83,7 +53,7 @@ const ChatWidget = () => {
     // Sanitize input
     const sanitizedMessage = sanitizeInput(message);
     
-    const userMessage = {
+    const userMessage: Message = {
       text: sanitizedMessage,
       isUser: true,
       timestamp: new Date()
@@ -91,81 +61,53 @@ const ChatWidget = () => {
 
     setMessages(prev => [...prev, userMessage]);
     setMessage('');
+    setIsLoading(true);
 
-    // Simulate AI response for text chat with TTS
-    setTimeout(async () => {
-      const responses = [
-        `Thank you for your interest! Our voice AI agents can transform your business operations in ${selectedLanguage.replace('_', ' ')}. Would you like to schedule a demo with CEO Austyn Eguale?`,
-        `ODIA.DEV specializes in voice-powered solutions for Nigerian businesses. Our agents handle customer service 24/7 with natural ${selectedLanguage.replace('_', ' ')} accents.`,
-        `We offer multilingual support and can integrate with your existing systems. What specific use case are you interested in exploring in ${selectedLanguage.replace('_', ' ')}?`,
-        `Our voice AI infrastructure is already helping businesses across Nigeria. We understand local business contexts and cultural nuances. Try our voice mode!`,
-        `Cross AI Protect provides emergency response coordination, while our WhatsApp automation handles business communications in your preferred language.`,
-        `As Nigeria's first voice AI infrastructure company, we understand local contexts. Experience the difference with ${selectedLanguage.replace('_', ' ')} voice AI!`
-      ];
-      
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-      
-      const aiMessage = {
-        text: randomResponse,
+    try {
+      // Call your production AI endpoint here
+      const { data, error } = await supabase.functions.invoke('odia-voice-chat', {
+        body: { 
+          message: sanitizedMessage,
+          context: 'chat'
+        }
+      });
+
+      if (error) throw error;
+
+      const aiMessage: Message = {
+        text: data?.response || "Thank you for your message. Our team will get back to you soon!",
         isUser: false,
         timestamp: new Date()
       };
       
       setMessages(prev => [...prev, aiMessage]);
-      
-      // Generate TTS audio if not in voice mode
-      if (conversation.status !== 'connected') {
-        try {
-          const { data, error } = await supabase.functions.invoke('nigerian-tts', {
-            body: { 
-              text: randomResponse,
-              language: selectedLanguage
-            }
-          });
-          
-          if (!error && data?.audioContent) {
-            // Play the generated audio
-            const audio = new Audio(`data:audio/mp3;base64,${data.audioContent}`);
-            await audio.play();
-          }
-        } catch (error) {
-          console.log('TTS not available:', error);
-        }
-      }
-    }, 1000);
-  };
-
-  const handleVoiceToggle = async () => {
-    try {
-      if (conversation.status === 'connected') {
-        await conversation.endSession();
-      } else {
-        // Request microphone permission
-        await navigator.mediaDevices.getUserMedia({ audio: true });
-        
-        // Get signed URL from our Supabase function (API key handled server-side)
-        const { data, error } = await supabase.functions.invoke('odia-voice-chat');
-        
-        if (error) throw error;
-        
-        if (!data.signed_url) {
-          throw new Error('No signed URL received');
-        }
-
-        // Start conversation with ElevenLabs using signed URL
-        const conversationId = await conversation.startSession({
-          signedUrl: data.signed_url
-        });
-      }
     } catch (error) {
-      toast({
-        title: "Voice Error",
-        description: "Failed to start voice conversation. Please check your microphone permissions.",
-        variant: "destructive"
-      });
+      console.error('Chat error:', error);
+      
+      // Fallback responses for production
+      const fallbackResponses = [
+        "Thank you for your interest! Our AI solutions can transform your business operations. Would you like to schedule a demo?",
+        "ODIA specializes in AI-powered solutions for Nigerian businesses. How can we help your organization?",
+        "We offer multilingual AI support and can integrate with your existing systems. What specific use case interests you?",
+        "Our AI infrastructure is helping businesses across Nigeria. Let's discuss how we can help your company grow.",
+        "As Nigeria's leading AI company, we understand local business needs. How can we assist you today?"
+      ];
+      
+      const aiMessage: Message = {
+        text: fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)],
+        isUser: false,
+        timestamp: new Date()
+      };
+      
+      setMessages(prev => [...prev, aiMessage]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  const chatWidgetSize = isMobile 
+    ? "fixed inset-x-4 bottom-4 top-16 z-50" 
+    : "fixed bottom-6 right-6 z-50 w-96 h-[500px] max-h-[80vh]";
 
   return (
     <>
@@ -174,23 +116,20 @@ const ChatWidget = () => {
         <div className="fixed bottom-6 right-6 z-50">
           <Button
             onClick={() => setIsOpen(true)}
-            className="w-16 h-16 rounded-full bg-navy hover:bg-navy-light text-white shadow-lg relative"
+            className="w-16 h-16 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200"
             size="icon"
             data-chat-widget
           >
             <MessageCircle className="w-8 h-8" />
-            {conversation.status === 'connected' && (
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
-            )}
           </Button>
         </div>
       )}
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-96 h-[500px]">
-          <Card className="h-full flex flex-col shadow-xl border-2 border-navy/20">
-            <CardHeader className="bg-navy text-white p-4 rounded-t-lg">
+        <div className={chatWidgetSize}>
+          <Card className="h-full flex flex-col shadow-xl border-2 border-border bg-background">
+            <CardHeader className="bg-primary text-primary-foreground p-4 rounded-t-lg">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <img 
@@ -200,16 +139,14 @@ const ChatWidget = () => {
                   />
                   <div>
                     <h3 className="font-semibold">ODIA AI Assistant</h3>
-                    <p className="text-xs text-white/80">
-                      {conversation.status === 'connected' ? 'Voice Active' : 'Online'}
-                    </p>
+                    <p className="text-xs text-primary-foreground/80">Online</p>
                   </div>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsOpen(false)}
-                  className="text-white hover:bg-white/20"
+                  className="text-primary-foreground hover:bg-primary-foreground/20"
                 >
                   <X className="w-4 h-4" />
                 </Button>
@@ -217,15 +154,6 @@ const ChatWidget = () => {
             </CardHeader>
 
             <CardContent className="flex-1 flex flex-col p-0">
-              {/* Language Selector */}
-              <div className="p-4 pb-0">
-                <LanguageSelector 
-                  selectedLanguage={selectedLanguage}
-                  onLanguageChange={setSelectedLanguage}
-                  isVoiceMode={conversation.status === 'connected'}
-                />
-              </div>
-              
               {/* Messages */}
               <div className="flex-1 overflow-y-auto p-4 space-y-3">
                 {messages.map((msg, index) => (
@@ -236,73 +164,48 @@ const ChatWidget = () => {
                     <div
                       className={`max-w-[80%] p-3 rounded-lg text-sm ${
                         msg.isUser
-                          ? 'bg-navy text-white'
-                          : 'bg-gray-100 text-gray-800'
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted text-muted-foreground'
                       }`}
                     >
                       <p>{msg.text}</p>
-                      <p className={`text-xs mt-1 ${
-                        msg.isUser ? 'text-white/70' : 'text-gray-500'
-                      }`}>
+                      <p className={`text-xs mt-1 opacity-70`}>
                         {msg.timestamp.toLocaleTimeString()}
                       </p>
                     </div>
                   </div>
                 ))}
+                {isLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-muted p-3 rounded-lg">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    </div>
+                  </div>
+                )}
                 <div ref={messagesEndRef} />
               </div>
 
-
               {/* Input Area */}
-              <div className="p-4 border-t">
-                <div className="flex space-x-2 mb-2">
+              <div className="p-4 border-t border-border">
+                <div className="flex space-x-2">
                   <input
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                     placeholder="Type your message..."
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-navy"
-                    disabled={conversation.status === 'connected'}
+                    className="flex-1 px-3 py-2 border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring bg-background"
+                    disabled={isLoading}
                   />
                   
                   <Button
                     onClick={handleSendMessage}
                     size="icon"
-                    disabled={!message.trim() || conversation.status === 'connected'}
-                    className="bg-navy hover:bg-navy-light text-white"
+                    disabled={!message.trim() || isLoading}
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
                   >
                     <Send className="w-4 h-4" />
                   </Button>
-                </div>
-
-                {/* Voice Controls */}
-                <div className="flex items-center justify-between">
-                  <Button
-                    onClick={handleVoiceToggle}
-                    variant={conversation.status === 'connected' ? "destructive" : "outline"}
-                    size="sm"
-                    className="flex items-center space-x-2"
-                  >
-                    {conversation.status === 'connected' ? (
-                      <>
-                        <PhoneOff className="w-4 h-4" />
-                        <span>End Voice</span>
-                      </>
-                    ) : (
-                      <>
-                        <Phone className="w-4 h-4" />
-                        <span>Start Voice</span>
-                      </>
-                    )}
-                  </Button>
-                  
-                  {conversation.isSpeaking && (
-                    <div className="flex items-center space-x-2 text-sm text-navy">
-                      <div className="w-2 h-2 bg-navy rounded-full animate-pulse"></div>
-                      <span>AI is speaking...</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </CardContent>
