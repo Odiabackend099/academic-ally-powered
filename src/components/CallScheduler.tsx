@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Calendar, Clock, User, Building, Phone, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { validateEmail, validateName, validatePhone, sanitizeInput, checkRateLimit } from "@/utils/validation";
+import { supabase } from "@/integrations/supabase/client";
 
 interface CallSchedulerProps {
   isOpen: boolean;
@@ -27,7 +28,7 @@ const CallScheduler = ({ isOpen, onClose }: CallSchedulerProps) => {
   });
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Rate limiting check
@@ -59,10 +60,24 @@ const CallScheduler = ({ isOpen, onClose }: CallSchedulerProps) => {
       return;
     }
 
-    if (!validatePhone(formData.phone)) {
+    if (formData.phone && !validatePhone(formData.phone)) {
       toast({
         title: "Invalid Phone",
         description: "Please enter a valid phone number.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate date is in the future
+    const selectedDate = new Date(formData.preferredDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    if (selectedDate < today) {
+      toast({
+        title: "Invalid Date",
+        description: "Please select a future date.",
         variant: "destructive"
       });
       return;
@@ -74,29 +89,51 @@ const CallScheduler = ({ isOpen, onClose }: CallSchedulerProps) => {
       email: sanitizeInput(formData.email),
       company: sanitizeInput(formData.company),
       phone: sanitizeInput(formData.phone),
-      preferredDate: formData.preferredDate,
-      preferredTime: formData.preferredTime,
+      date: formData.preferredDate,
+      time: formData.preferredTime,
       businessType: formData.businessType,
       message: sanitizeInput(formData.message)
     };
 
-    // In production, integrate with Calendly or similar scheduling API
-    console.log("Call scheduled:", sanitizedData);
-    toast({
-      title: "Meeting Request Submitted",
-      description: "Our team will contact you within 24 hours to confirm your meeting with CEO Austyn Eguale.",
-    });
-    onClose();
-    setFormData({
-      name: "",
-      email: "",
-      company: "",
-      phone: "",
-      preferredDate: "",
-      preferredTime: "",
-      businessType: "",
-      message: ""
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke('secure-call-scheduler', {
+        body: sanitizedData
+      });
+
+      if (error) {
+        console.error('Call scheduler error:', error);
+        toast({
+          title: "Scheduling Failed",
+          description: "Failed to schedule call. Please try again.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      console.log("Call scheduled successfully:", data.submissionId);
+      toast({
+        title: "Meeting Request Submitted",
+        description: "Our team will contact you within 24 hours to confirm your meeting with CEO Austyn Eguale.",
+      });
+      onClose();
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        phone: "",
+        preferredDate: "",
+        preferredTime: "",
+        businessType: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error('Call scheduler submission error:', error);
+      toast({
+        title: "Scheduling Failed",
+        description: "Failed to schedule call. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   return (

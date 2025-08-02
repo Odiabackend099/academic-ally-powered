@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      call_scheduler_submissions: {
+        Row: {
+          business_type: string | null
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          ip_address: unknown | null
+          message: string | null
+          name: string
+          phone: string | null
+          preferred_date: string
+          preferred_time: string
+          processed: boolean | null
+          user_agent: string | null
+        }
+        Insert: {
+          business_type?: string | null
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          ip_address?: unknown | null
+          message?: string | null
+          name: string
+          phone?: string | null
+          preferred_date: string
+          preferred_time: string
+          processed?: boolean | null
+          user_agent?: string | null
+        }
+        Update: {
+          business_type?: string | null
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          ip_address?: unknown | null
+          message?: string | null
+          name?: string
+          phone?: string | null
+          preferred_date?: string
+          preferred_time?: string
+          processed?: boolean | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       clan_levels: {
         Row: {
           created_at: string
@@ -207,6 +255,45 @@ export type Database = {
           telegram_link?: string | null
           total_coins?: number | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      contact_submissions: {
+        Row: {
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          interest: string | null
+          ip_address: unknown | null
+          message: string
+          name: string
+          processed: boolean | null
+          user_agent: string | null
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          interest?: string | null
+          ip_address?: unknown | null
+          message: string
+          name: string
+          processed?: boolean | null
+          user_agent?: string | null
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          interest?: string | null
+          ip_address?: unknown | null
+          message?: string
+          name?: string
+          processed?: boolean | null
+          user_agent?: string | null
         }
         Relationships: []
       }

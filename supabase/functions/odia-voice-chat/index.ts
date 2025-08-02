@@ -11,10 +11,25 @@ serve(async (req) => {
   }
 
   try {
+    // Check content length to prevent large payloads
+    const contentLength = req.headers.get('content-length');
+    if (contentLength && parseInt(contentLength) > 5000) {
+      return new Response(
+        JSON.stringify({ error: 'Request too large' }),
+        { status: 413, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const ELEVENLABS_API_KEY = Deno.env.get('ELEVENLABS_API_KEY');
     if (!ELEVENLABS_API_KEY) {
       throw new Error('ElevenLabs API key not configured');
     }
+
+    // Basic rate limiting check - get client IP
+    const clientIP = req.headers.get('x-forwarded-for')?.split(',')[0] || 
+                     req.headers.get('x-real-ip') || 'unknown';
+    
+    console.log(`Voice chat request from IP: ${clientIP}`);
 
     // Create a signed URL for ElevenLabs Conversational AI
     const response = await fetch("https://api.elevenlabs.io/v1/convai/conversation/get_signed_url", {

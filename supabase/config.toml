@@ -1,1 +1,7 @@
 project_id = "kdidvhhfwdcuptysvzqm"
+
+[functions.secure-contact-form]
+verify_jwt = false
+
+[functions.secure-call-scheduler]
+verify_jwt = false

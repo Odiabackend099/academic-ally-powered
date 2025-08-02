@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
-import { validateEmail, validateName, sanitizeInput, checkRateLimit } from "@/utils/validation";
+import { validateEmail, validateName, validateMessage, sanitizeInput, checkRateLimit } from "@/utils/validation";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -16,7 +17,7 @@ const ContactSection = () => {
     interest: "voice-ai"
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Rate limiting check
@@ -48,6 +49,15 @@ const ContactSection = () => {
       return;
     }
 
+    if (!validateMessage(formData.message)) {
+      toast({
+        title: "Message Too Long",
+        description: "Message must be 1000 characters or less.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     // Sanitize form data
     const sanitizedData = {
       name: sanitizeInput(formData.name),
@@ -57,13 +67,35 @@ const ContactSection = () => {
       interest: formData.interest
     };
 
-    // Send form data to backend
-    console.log("Contact form submitted:", sanitizedData);
-    toast({
-      title: "Form Submitted",
-      description: "Thank you for your interest! Our team will contact you within 24 hours.",
-    });
-    setFormData({ name: "", email: "", company: "", message: "", interest: "voice-ai" });
+    try {
+      const { data, error } = await supabase.functions.invoke('secure-contact-form', {
+        body: sanitizedData
+      });
+
+      if (error) {
+        console.error('Contact form error:', error);
+        toast({
+          title: "Submission Failed",
+          description: "Failed to submit form. Please try again.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      console.log("Contact form submitted successfully:", data.submissionId);
+      toast({
+        title: "Form Submitted",
+        description: "Thank you for your interest! Our team will contact you within 24 hours.",
+      });
+      setFormData({ name: "", email: "", company: "", message: "", interest: "voice-ai" });
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      toast({
+        title: "Submission Failed",
+        description: "Failed to submit form. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

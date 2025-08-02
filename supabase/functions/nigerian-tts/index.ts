@@ -11,6 +11,15 @@ serve(async (req) => {
   }
 
   try {
+    // Check content length to prevent large payloads
+    const contentLength = req.headers.get('content-length');
+    if (contentLength && parseInt(contentLength) > 10000) {
+      return new Response(
+        JSON.stringify({ error: 'Request too large' }),
+        { status: 413, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const ELEVENLABS_API_KEY = Deno.env.get('ELEVENLABS_API_KEY');
     if (!ELEVENLABS_API_KEY) {
       throw new Error('ElevenLabs API key not configured');
@@ -18,9 +27,33 @@ serve(async (req) => {
 
     const { text, language = 'nigerian_english' } = await req.json();
 
-    if (!text) {
-      throw new Error('Text is required');
+    // Validate input length and content
+    if (!text || typeof text !== 'string') {
+      throw new Error('Text is required and must be a string');
     }
+
+    if (text.length > 5000) {
+      throw new Error('Text too long. Maximum 5000 characters allowed.');
+    }
+
+    // Basic prompt injection protection
+    const suspiciousPatterns = [
+      /ignore\s+previous\s+instructions/i,
+      /system\s*:/i,
+      /assistant\s*:/i,
+      /\[INST\]/i,
+      /<\|system\|>/i
+    ];
+
+    if (suspiciousPatterns.some(pattern => pattern.test(text))) {
+      throw new Error('Invalid text content detected');
+    }
+
+    // Get client IP for logging
+    const clientIP = req.headers.get('x-forwarded-for')?.split(',')[0] || 
+                     req.headers.get('x-real-ip') || 'unknown';
+    
+    console.log(`TTS request from IP: ${clientIP}, text length: ${text.length}, language: ${language}`);
 
     // Map languages to voice IDs and prompts
     const voiceConfig = {
