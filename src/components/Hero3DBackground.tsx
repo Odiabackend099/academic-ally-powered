@@ -1,6 +1,6 @@
 import { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, MeshDistortMaterial, Environment } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Animated 3D sphere component
@@ -16,16 +16,16 @@ function AnimatedSphere() {
   });
 
   return (
-    <Sphere ref={meshRef} args={[1, 100, 200]} scale={2.5}>
-      <MeshDistortMaterial
+    <mesh ref={meshRef} scale={2.5}>
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshStandardMaterial
         color="#008751"
-        attach="material"
-        distort={0.3}
-        speed={2}
-        roughness={0}
+        roughness={0.1}
         metalness={0.8}
+        transparent
+        opacity={0.8}
       />
-    </Sphere>
+    </mesh>
   );
 }
 
@@ -93,7 +93,7 @@ const Hero3DBackground: React.FC<Hero3DBackgroundProps> = ({ className = "" }) =
           <AnimatedSphere />
           <FloatingParticles />
           
-          <Environment preset="night" />
+          
           
           <OrbitControls
             enableZoom={false}
