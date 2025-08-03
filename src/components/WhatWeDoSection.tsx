@@ -74,7 +74,7 @@ const WhatWeDoSection = () => {
           >
             <div className="relative overflow-hidden rounded-lg group">
               <img 
-                src={ceoAustinHeadshot} 
+                src="/src/assets/ceo-austyn-presenting.jpg" 
                 alt="CEO Austyn Eguale presenting ODIA AI's voice AI solutions" 
                 className="w-full h-[600px] object-cover transition-transform duration-700 group-hover:scale-110"
               />

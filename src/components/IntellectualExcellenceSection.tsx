@@ -18,7 +18,7 @@ const IntellectualExcellenceSection = () => {
           <div className="relative">
             <div className="relative overflow-hidden">
               <img 
-                src={africanWomanExecutive} 
+                src="/src/assets/african-ai-researcher-professional.jpg" 
                 alt="African AI Research Professional and University Innovation Leader" 
                 className="w-full h-[600px] object-cover"
               />

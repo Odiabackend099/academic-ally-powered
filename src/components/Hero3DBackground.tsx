@@ -1,4 +1,4 @@
-import { Suspense, useRef } from 'react';
+import { Suspense, useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
@@ -16,14 +16,14 @@ function AnimatedSphere() {
   });
 
   return (
-    <mesh ref={meshRef} scale={2.5}>
+    <mesh ref={meshRef} scale={window.innerWidth < 768 ? 1.8 : 2.5}>
       <sphereGeometry args={[1, 32, 32]} />
       <meshStandardMaterial
         color="#008751"
         roughness={0.1}
         metalness={0.8}
         transparent
-        opacity={0.8}
+        opacity={0.9}
       />
     </mesh>
   );
@@ -77,23 +77,41 @@ interface Hero3DBackgroundProps {
 }
 
 const Hero3DBackground: React.FC<Hero3DBackgroundProps> = ({ className = "" }) => {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
   return (
-    <div className={`absolute inset-0 ${className}`}>
+    <div className={`absolute inset-0 ${className}`} style={{ opacity: 0.8 }}>
       <Suspense fallback={<LoadingFallback />}>
         <Canvas
-          camera={{ position: [0, 0, 5], fov: 75 }}
+          camera={{ 
+            position: [0, 0, 5], 
+            fov: dimensions.width < 768 ? 85 : 75,
+            aspect: dimensions.width / dimensions.height
+          }}
           style={{ background: 'transparent' }}
-          dpr={Math.min(window.devicePixelRatio, 2)} // Optimize for performance
-          performance={{ min: 0.5 }} // PWA optimization
+          dpr={Math.min(window.devicePixelRatio, 2)}
+          performance={{ min: 0.5 }}
+          resize={{ scroll: false, debounce: { scroll: 50, resize: 0 } }}
         >
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 5]} intensity={1} />
-          <pointLight position={[-10, -10, -5]} color="#FFD700" intensity={0.5} />
+          <ambientLight intensity={0.6} />
+          <directionalLight position={[10, 10, 5]} intensity={1.2} />
+          <pointLight position={[-10, -10, -5]} color="#FFD700" intensity={0.7} />
           
           <AnimatedSphere />
           <FloatingParticles />
-          
-          
           
           <OrbitControls
             enableZoom={false}

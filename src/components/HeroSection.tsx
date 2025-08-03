@@ -176,10 +176,10 @@ const HeroSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="
-                group w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white font-semibold py-5 px-10 
-                rounded-xl text-lg border-2 border-white/30 hover:border-white/60 backdrop-blur-md
+                group w-full sm:w-auto bg-transparent hover:bg-white/10 text-white font-semibold py-5 px-10 
+                rounded-xl text-lg border-2 border-white/50 hover:border-white/80 backdrop-blur-sm
                 transition-all duration-500 ease-out
-                hover:shadow-xl hover:shadow-white/20
+                hover:shadow-xl hover:shadow-white/30
                 transform hover:scale-105 hover:-translate-y-2 active:scale-95
                 relative overflow-hidden
               "
